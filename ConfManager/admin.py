@@ -1,3 +1,11 @@
 from django.contrib import admin
+from .models import *
 
-# Register your models here.
+admin.site.register(Board)
+admin.site.register(BoardType)
+admin.site.register(Configuration)
+admin.site.register(PowerController)
+admin.site.register(PowerSupply)
+admin.site.register(NetInterface)
+admin.site.register(Reservation)
+
