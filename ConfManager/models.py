@@ -21,14 +21,6 @@ class Board(models.Model):
         return self.name
 
 
-class NetInterface(models.Model):
-    mac_address = models.CharField(max_length=20)
-    ip = models.CharField(max_length=20)
-
-    def __str__(self):
-        return self.mac_address
-
-
 class Configuration(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField(null=True)

@@ -25,7 +25,7 @@ SECRET_KEY = 'i3v_%*zn=08!@i-023_b0zj13r5y-d3j5m^z_&6%aj&qjixqsh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["bqxlin.local"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ConfManager'
+    'ConfManager',
+    'IPLabo',
 ]
 
 MIDDLEWARE = [

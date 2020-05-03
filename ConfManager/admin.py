@@ -6,6 +6,5 @@ admin.site.register(BoardType)
 admin.site.register(Configuration)
 admin.site.register(PowerController)
 admin.site.register(PowerSupply)
-admin.site.register(NetInterface)
 admin.site.register(Reservation)
 

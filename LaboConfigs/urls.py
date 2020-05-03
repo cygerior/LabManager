@@ -20,5 +20,6 @@ from ConfManager import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('confmanager/', include('ConfManager.urls'))
+    path('confmanager/', include('ConfManager.urls')),
+    path('ip_labo/', include('IPLabo.urls')),
 ]

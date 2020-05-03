@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des IP</title>
+</head>
+<body>
+    <table>
+    {% for ip in iplist %}
+        <tr>
+            <td>{{ ip.title }}</td>
+            <td>{{ ip.ip }}</td>
+            <td>{{ ip.comment }}</td>
+        </tr>
+    {% empty %}
+        <tr>Empty IP Pool</tr>
+    {% endfor %}
+    </table>
+</body>
+</html>
