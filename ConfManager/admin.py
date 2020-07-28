@@ -2,6 +2,7 @@ from django.contrib import admin
 from polymorphic.admin import PolymorphicParentModelAdmin, PolymorphicChildModelAdmin
 
 from .models import *
+from .models.board import BoardInterface, BoardInterfaceAdmin
 from .models.interfaces import NetworkInterface, UartInterface
 
 
@@ -35,6 +36,8 @@ class PowerControllerAdmin(admin.ModelAdmin):
 
 
 admin.site.register(BoardType)
+admin.site.register(PowerSupply)
+admin.site.register(BoardInterface, BoardInterfaceAdmin)
 admin.site.register(Configuration)
 admin.site.register(Resource)
 admin.site.register(Reservation)

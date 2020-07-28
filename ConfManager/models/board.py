@@ -1,3 +1,4 @@
+from django.contrib import admin
 from django.db import models
 
 from .interfaces import Interface
@@ -25,3 +26,20 @@ class Board(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class BoardInterface(models.Model):
+    name = models.CharField(max_length=50)
+    board = models.ForeignKey('Board', on_delete=models.CASCADE, null=False)
+    uri = models.CharField(max_length=50)
+
+    def __str__(self):
+        return '{board} {name} {uri}'.format(
+            name=self.name,
+            board=self.board,
+            uri=self.uri
+        )
+
+
+class BoardInterfaceAdmin(admin.ModelAdmin):
+    list_display = ('board', 'name', 'uri')
