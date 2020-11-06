@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -45,7 +46,10 @@ class PowerSupply(models.Model):
 
 
 class Reservation(models.Model):
-    user = models.ForeignKey(User, to_field='username', on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
     date = models.DateTimeField(auto_now=True)
     to_be_released = models.DateTimeField(null=True)
     configuration = models.OneToOneField(Configuration, on_delete=models.CASCADE)
