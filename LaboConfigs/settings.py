@@ -25,7 +25,7 @@ SECRET_KEY = 'i3v_%*zn=08!@i-023_b0zj13r5y-d3j5m^z_&6%aj&qjixqsh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["bqxlin.local"]
 
 
 # Application definition
@@ -123,3 +123,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+# USE_X_FORWARDED_HOST = True
+# USE_X_FORWARDED_PORT = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

@@ -19,7 +19,9 @@ from django.urls import path, include
 from ConfManager import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('confmanager/', include('ConfManager.urls')),
-    path('ip_labo/', include('IPLabo.urls')),
+    path('labo_configs/', include([
+        path('admin/', admin.site.urls),
+        path('confmanager/', include('ConfManager.urls')),
+        path('ip_labo/', include('IPLabo.urls')),
+    ])),
 ]
