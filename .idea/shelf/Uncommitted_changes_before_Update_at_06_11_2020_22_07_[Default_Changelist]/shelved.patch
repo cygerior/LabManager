@@ -1,0 +1,40 @@
+Index: .gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/db.sqlite3\n/venv/\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .gitignore	(revision 9f9b7ccd3f1c9cfb684642935f563df219636278)
++++ .gitignore	(date 1603391496262)
+@@ -1,2 +1,4 @@
+ /db.sqlite3
+ /venv/
++__pycache__
++
+Index: ConfManager/models.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from django.contrib.auth.models import User\nfrom django.db import models\n\n# Create your models here.\n\n\nclass BoardType(models.Model):\n    name = models.CharField(max_length=30)\n\n    def __str__(self):\n        return self.name\n\n\nclass Board(models.Model):\n    name = models.CharField(max_length=50)\n    serial_number = models.CharField(max_length=50, null=True)\n    description = models.TextField(null=True)\n    type = models.ForeignKey('BoardType', on_delete=models.SET_NULL, null=True)\n\n    def __str__(self):\n        return self.name\n\n\nclass NetInterface(models.Model):\n    mac_address = models.CharField(max_length=20)\n    ip = models.CharField(max_length=20)\n\n    def __str__(self):\n        return self.mac_address\n\n\nclass Configuration(models.Model):\n    name = models.CharField(max_length=50)\n    description = models.TextField(null=True)\n    board = models.ForeignKey('Board', on_delete=models.SET_NULL, null=True)\n    power = models.ForeignKey('PowerSupply', on_delete=models.SET_NULL, null=True)\n\n\nclass PowerController(models.Model):\n    name = models.CharField(max_length=30)\n\n    def __str__(self):\n        return self.name\n\n\nclass PowerSupply(models.Model):\n    name = models.CharField(max_length=30)\n    port_number = models.IntegerField()\n    controller =  models.ForeignKey(PowerController, on_delete=models.CASCADE)\n\n    def __str__(self):\n        return self.name\n\n\nclass Reservation(models.Model):\n    user = models.ForeignKey(User, to_field='username', on_delete=models.CASCADE)\n    date = models.DateTimeField(auto_now=True)\n    to_be_released = models.DateTimeField(null=True)\n    configuration = models.OneToOneField(Configuration, on_delete=models.CASCADE)\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- ConfManager/models.py	(revision 9f9b7ccd3f1c9cfb684642935f563df219636278)
++++ ConfManager/models.py	(date 1587891291055)
+@@ -1,3 +1,4 @@
++from django.conf import settings
+ from django.contrib.auth.models import User
+ from django.db import models
+ 
+@@ -53,7 +54,10 @@
+ 
+ 
+ class Reservation(models.Model):
+-    user = models.ForeignKey(User, to_field='username', on_delete=models.CASCADE)
++    user = models.ForeignKey(
++        settings.AUTH_USER_MODEL,
++        on_delete=models.CASCADE
++    )
+     date = models.DateTimeField(auto_now=True)
+     to_be_released = models.DateTimeField(null=True)
+     configuration = models.OneToOneField(Configuration, on_delete=models.CASCADE)
