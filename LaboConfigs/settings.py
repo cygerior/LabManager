@@ -25,7 +25,7 @@ SECRET_KEY = 'i3v_%*zn=08!@i-023_b0zj13r5y-d3j5m^z_&6%aj&qjixqsh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["bqxlin.local"]
+ALLOWED_HOSTS = ['bqxlin.local', 'localhost', '127.0.0.1']
 
 
 # Application definition

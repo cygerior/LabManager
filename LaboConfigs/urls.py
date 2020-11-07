@@ -16,9 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from ConfManager import views
+from LaboConfigs import views
 
 urlpatterns = [
+    path('labo_configs/', views.index),
     path('labo_configs/', include([
         path('admin/', admin.site.urls),
         path('confmanager/', include('ConfManager.urls')),
