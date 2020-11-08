@@ -1,5 +1,4 @@
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
@@ -39,7 +38,15 @@ class PowerController(models.Model):
 class PowerSupply(models.Model):
     name = models.CharField(max_length=30)
     port_number = models.IntegerField()
-    controller =  models.ForeignKey(PowerController, on_delete=models.CASCADE)
+    controller = models.ForeignKey(PowerController, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+
+class Resource(models.Model):
+    name = models.CharField(max_length=30)
+    description = models.TextField(null=True)
 
     def __str__(self):
         return self.name
@@ -52,5 +59,5 @@ class Reservation(models.Model):
     )
     date = models.DateTimeField(auto_now=True)
     to_be_released = models.DateTimeField(null=True)
-    configuration = models.OneToOneField(Configuration, on_delete=models.CASCADE)
+    resource = models.OneToOneField(Resource, on_delete=models.CASCADE)
 
