@@ -44,12 +44,22 @@ class PowerSupply(models.Model):
         return self.name
 
 
-class Resource(models.Model):
+class Label(models.Model):
     name = models.CharField(max_length=30)
-    description = models.TextField(null=True)
+    description = models.TextField(blank=True)
 
     def __str__(self):
         return self.name
+
+
+class Resource(models.Model):
+    name = models.CharField(max_length=30)
+    description = models.TextField(blank=True)
+    labels = models.ManyToManyField(Label)
+
+    def __str__(self):
+        return self.name
+
 
 
 class Reservation(models.Model):
@@ -60,4 +70,11 @@ class Reservation(models.Model):
     date = models.DateTimeField(auto_now=True)
     to_be_released = models.DateTimeField(null=True)
     resource = models.OneToOneField(Resource, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return '{user} <-> {resource}'.format(
+            user=self.user,
+            resource=self.resource
+        )
+
 

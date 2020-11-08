@@ -9,3 +9,6 @@ admin.site.register(PowerSupply)
 admin.site.register(Resource)
 admin.site.register(Reservation)
 
+admin.site.register(Label)
+
+
