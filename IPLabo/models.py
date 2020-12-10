@@ -2,11 +2,13 @@ import os
 from ipaddress import ip_address, IPv4Address, summarize_address_range
 
 from django.db import models
+from macaddress.fields import MACAddressField
 
 
 class IpPool(models.Model):
-    ip = models.CharField(max_length=15, unique=True)
-    comment = models.TextField(null=True)
+    ip = models.GenericIPAddressField(unique=True)
+    arp_mac = MACAddressField(null=True)
+    comment = models.TextField(blank=True, default='')
 
     @classmethod
     def add_range(cls, ip_start: IPv4Address,  ip_end: IPv4Address):
@@ -20,10 +22,16 @@ class IpPool(models.Model):
         return self.ip
 
 
+class Arp(models.Model):
+    ip = models.OneToOneField(IpPool, on_delete=models.CASCADE)
+    mac = MACAddressField(null=True)
+    date = models.DateTimeField(null=True)
+
+
 class NetInterface(models.Model):
     title = models.CharField(max_length=120)
-    mac_address = models.CharField(max_length=17, null=True)
-    comment = models.TextField(null=True)
+    mac_address = MACAddressField(null=True)
+    comment = models.TextField(blank=True, default='')
 
     def __str__(self):
         return self.title

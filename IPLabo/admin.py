@@ -12,6 +12,7 @@ class IpResource(resources.ModelResource):
 
     class Meta:
         model = IpPool
+        fields = ('id', 'ip', 'comment',)
 
 
 class IpAdmin(ImportExportModelAdmin):
