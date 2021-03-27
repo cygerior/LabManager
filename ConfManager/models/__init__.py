@@ -1,18 +1,19 @@
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
 
 
 class BoardType(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=30, unique=True)
 
     def __str__(self):
         return self.name
 
 
 class Board(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
     serial_number = models.CharField(max_length=50, null=True)
     description = models.TextField(null=True)
     type = models.ForeignKey('BoardType', on_delete=models.SET_NULL, null=True)
@@ -22,26 +23,35 @@ class Board(models.Model):
 
 
 class Configuration(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
     description = models.TextField(null=True)
     board = models.ForeignKey('Board', on_delete=models.SET_NULL, null=True)
     power = models.ForeignKey('PowerSupply', on_delete=models.SET_NULL, null=True)
 
+    def __str__(self):
+        return self.name
+
 
 class PowerController(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=30, unique=True)
 
     def __str__(self):
         return self.name
 
 
 class PowerSupply(models.Model):
-    name = models.CharField(max_length=30)
     port_number = models.IntegerField()
     controller = models.ForeignKey(PowerController, on_delete=models.CASCADE)
 
+    class Meta:
+        verbose_name_plural = "Power supplies"
+        ordering = ['port_number']
+        constraints = [
+            models.UniqueConstraint(fields=["port_number", "controller"], name="unique_port_controller")
+        ]
+
     def __str__(self):
-        return self.name
+        return f'{self.controller.name} Port {self.port_number}'
 
 
 class Label(models.Model):
@@ -76,5 +86,28 @@ class Reservation(models.Model):
             user=self.user,
             resource=self.resource
         )
+
+
+    def __str__(self):
+        return f'{self.configuration.name} - {self.user}'
+
+
+class RackSlot(models.Model):
+
+    rack = models.ForeignKey("Rack", on_delete=models.CASCADE)
+    board = models.OneToOneField(Board, on_delete=models.CASCADE)
+    slot_id = models.IntegerField()
+
+    def __str__(self):
+        return f'{self.rack.name} Slot {self.slot_id} -> {self.board.name}'
+
+
+class Rack(models.Model):
+    name = models.CharField(max_length=30)
+    description = models.TextField(null=True)
+    board = models.ManyToManyField(Board, through=RackSlot)
+
+    def __str__(self):
+        return self.name
 
 
