@@ -5,10 +5,21 @@ from django.db import models
 from macaddress.fields import MACAddressField
 
 
+class Label(models.Model):
+    title = models.CharField(max_length=30)
+    description = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.title
+
+
 class IpPool(models.Model):
     ip = models.GenericIPAddressField(unique=True)
-    arp_mac = MACAddressField(null=True)
+    labels = models.ManyToManyField(Label)
     comment = models.TextField(blank=True, default='')
+
+    def get_labels(self):
+        return ", ".join([p.title for p in self.labels.all()])
 
     @classmethod
     def add_range(cls, ip_start: IPv4Address,  ip_end: IPv4Address):
@@ -23,7 +34,7 @@ class IpPool(models.Model):
 
 
 class Arp(models.Model):
-    ip = models.OneToOneField(IpPool, on_delete=models.CASCADE)
+    ip = models.ForeignKey(IpPool, on_delete=models.CASCADE)
     mac = MACAddressField(null=True)
     date = models.DateTimeField(null=True)
 

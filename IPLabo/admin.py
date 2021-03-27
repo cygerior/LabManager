@@ -1,11 +1,16 @@
 from django.contrib import admin
+from django.shortcuts import redirect
+from django.urls import path
 from import_export import resources
+from import_export.admin import ImportExportModelAdmin
 
 from .models import *
 
+
 # Register your models here.
 
-from import_export.admin import ImportExportModelAdmin
+
+admin.site.register(Label)
 
 
 class IpResource(resources.ModelResource):
@@ -15,8 +20,31 @@ class IpResource(resources.ModelResource):
         fields = ('id', 'ip', 'comment',)
 
 
+@admin.register(IpPool)
 class IpAdmin(ImportExportModelAdmin):
     resource_class = IpResource
+    list_display = ('ip', 'get_labels', 'comment')
+    list_filter = ('labels',)
+    ordering = ('ip',)
 
+    def get_urls(self):
+        urls = super().get_urls()
 
-admin.site.register(IpPool, IpAdmin)
+        my_urls = [
+            path(
+                'evilUrl/',
+                self.admin_site.admin_view(self.do_evil_view)
+            )
+        ]
+        return my_urls + urls
+
+    def do_evil_view(self, request):
+        print('doing evil')
+        return redirect('/labo_configs/admin/IPLabo/ippool/')
+
+    def add_range(self, request, ip_start, ip_end):
+        IpPool.add_range(ip_address(ip_start), ip_address(ip_end))
+        return render(request, 'IPLabo/add_range.html', locals())
+
+    change_list_template = "admin/IPLabo/ippool/change_list.html"
+
