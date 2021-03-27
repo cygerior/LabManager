@@ -1,5 +1,4 @@
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
@@ -71,7 +70,6 @@ class Resource(models.Model):
         return self.name
 
 
-
 class Reservation(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -79,14 +77,7 @@ class Reservation(models.Model):
     )
     date = models.DateTimeField(auto_now=True)
     to_be_released = models.DateTimeField(null=True)
-    resource = models.OneToOneField(Resource, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return '{user} <-> {resource}'.format(
-            user=self.user,
-            resource=self.resource
-        )
-
+    configuration = models.OneToOneField(Configuration, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.configuration.name} - {self.user}'
