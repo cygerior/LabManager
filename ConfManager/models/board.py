@@ -21,11 +21,13 @@ class Board(models.Model):
     serial_number = models.CharField(max_length=50, null=True)
     description = models.TextField(null=True)
     type = models.ForeignKey('BoardType', on_delete=models.SET_NULL, null=True)
-
     interfaces = models.ManyToManyField(Interface)
-
     def __str__(self):
         return self.name
+
+
+class BoardAdmin(admin.ModelAdmin):
+    list_display = ('name', 'type')
 
 
 class BoardInterface(models.Model):
@@ -43,3 +45,4 @@ class BoardInterface(models.Model):
 
 class BoardInterfaceAdmin(admin.ModelAdmin):
     list_display = ('board', 'name', 'uri')
+    fields = (('board', 'name'), 'uri')
