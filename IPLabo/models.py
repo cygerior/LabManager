@@ -16,9 +16,9 @@ class Label(models.Model):
 class IpPool(models.Model):
     ip = models.GenericIPAddressField(unique=True)
     labels = models.ManyToManyField(Label)
-    comment = models.TextField(blank=True, default='')
+    comment = models.TextField(blank=True, default='', null=True)
 
-    def get_labels(self):
+    def label_list(self):
         return ", ".join([p.title for p in self.labels.all()])
 
     @classmethod
