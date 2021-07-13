@@ -5,8 +5,6 @@ from django.shortcuts import render
 from LabNet.models import IpPool
 
 
-# Create your views here.
-
 def list(request):
     return render(request, 'LabNet/List.html', {'iplist': IpPool.objects.all()})
 

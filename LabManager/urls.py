@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from django.views.generic.base import RedirectView
 from LabManager import views
+
+favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
 
 urlpatterns = [
     # path('labo_configs/', views.index),
@@ -25,4 +27,5 @@ urlpatterns = [
         path('conf_manager/', include('ConfManager.urls')),
         path('lab_net/', include('LabNet.urls')),
     ])),
+    path('favicon.ico', favicon_view),
 ]
