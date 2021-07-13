@@ -54,4 +54,4 @@ class IpReservation(models.Model):
     datetime = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.ip_ref.ip
+        return self.ip_ref
