@@ -4,6 +4,18 @@ from django.db import models
 class PowerController(models.Model):
     name = models.CharField(max_length=30, unique=True)
 
+    @classmethod
+    def new(cls, url: str, out_count: int):
+        rpc = cls(name=url)
+        rpc.save()
+        for out_index in range(out_count):
+            out = PowerSupply(
+                name='{name} - {id}'.format(name=url, id=out_index),
+                port_number=out_index,
+                controller=rpc
+            )
+            out.save()
+
     def __str__(self):
         return self.name
 
