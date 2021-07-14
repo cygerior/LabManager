@@ -7,6 +7,9 @@ from .interfaces import Interface
 class BoardTypeDevice(models.Model):
     name = models.CharField(max_length=30)
 
+    def __str__(self):
+        return self.name
+
 
 class BoardType(models.Model):
     name = models.CharField(max_length=30, unique=True)
@@ -22,12 +25,9 @@ class Board(models.Model):
     description = models.TextField(null=True)
     type = models.ForeignKey('BoardType', on_delete=models.SET_NULL, null=True)
     interfaces = models.ManyToManyField(Interface)
+
     def __str__(self):
         return self.name
-
-
-class BoardAdmin(admin.ModelAdmin):
-    list_display = ('name', 'type')
 
 
 class BoardInterface(models.Model):
@@ -41,8 +41,3 @@ class BoardInterface(models.Model):
             board=self.board,
             uri=self.uri
         )
-
-
-class BoardInterfaceAdmin(admin.ModelAdmin):
-    list_display = ('board', 'name', 'uri')
-    fields = (('board', 'name'), 'uri')

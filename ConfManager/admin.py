@@ -2,8 +2,6 @@ from django.contrib import admin
 from polymorphic.admin import PolymorphicParentModelAdmin, PolymorphicChildModelAdmin
 
 from .models import *
-from .models.board import BoardInterface, BoardInterfaceAdmin
-from .models.interfaces import NetworkInterface, UartInterface
 
 
 class RackInline(admin.TabularInline):
@@ -14,10 +12,6 @@ class RackInline(admin.TabularInline):
 class DeviceInline(admin.TabularInline):
     model = Device
     extra = 1
-
-
-class RackAdmin(admin.ModelAdmin):
-    inlines = (RackInline,)
 
 
 @admin.register(Board)
@@ -37,28 +31,45 @@ class PowerControllerAdmin(admin.ModelAdmin):
 
 admin.site.register(BoardType)
 admin.site.register(PowerSupply)
-admin.site.register(BoardInterface, BoardInterfaceAdmin)
 admin.site.register(Configuration)
 admin.site.register(Resource)
 admin.site.register(Reservation)
-admin.site.register(Rack, RackAdmin)
 admin.site.register(Device)
 admin.site.register(Label)
 admin.site.register(ModuleDefinition)
 admin.site.register(BoardDefinition)
+admin.site.register(BoardTypeDevice)
+
+
+@admin.register(Rack)
+class RackAdmin(admin.ModelAdmin):
+    inlines = (RackInline,)
+
+
+@admin.register(BoardInterface)
+class BoardInterfaceAdmin(admin.ModelAdmin):
+    list_display = ('board', 'name', 'uri')
+    fields = (('board', 'name'), 'uri')
 
 
 @admin.register(Interface)
 class InterfaceAdmin(PolymorphicParentModelAdmin):
     base_model = Interface
-    child_models = [NetworkInterface, UartInterface]
+    child_models = [NetworkInterface, UartInterface, BackplaneNetworkInterface]
 
 
 @admin.register(NetworkInterface)
 class NetworkInterfaceAdmin(PolymorphicChildModelAdmin):
-    base_model = NetworkInterface
+    base_model = Interface
+    list_display = ('name', 'address')
+    fields = (('name', 'mac_address'), 'address')
 
 
 @admin.register(UartInterface)
 class UartInterfaceAdmin(PolymorphicChildModelAdmin):
-    base_model = UartInterface
+    base_model = Interface
+
+
+@admin.register(BackplaneNetworkInterface)
+class UartInterfaceAdmin(PolymorphicChildModelAdmin):
+    base_model = Interface
