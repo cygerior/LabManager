@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('ConfManager', '0012_backplanenetworkinterface_device'),
     ]

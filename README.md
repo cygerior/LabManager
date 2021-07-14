@@ -1,4 +1,4 @@
-### Labo Configs
+### Lab Manager
 
 small django project to manage laboratory equipment reservations, Hardware configurations, etc...
 

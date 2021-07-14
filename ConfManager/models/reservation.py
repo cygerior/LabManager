@@ -40,4 +40,3 @@ class Reservation(models.Model):
 
     def __str__(self):
         return f'{self.configuration.name} - {self.user}'
-

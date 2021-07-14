@@ -4,7 +4,6 @@ from .board import Board
 
 
 class RackSlot(models.Model):
-
     rack = models.ForeignKey("Rack", on_delete=models.CASCADE)
     board = models.OneToOneField(Board, on_delete=models.CASCADE)
     slot_id = models.IntegerField()
@@ -20,5 +19,3 @@ class Rack(models.Model):
 
     def __str__(self):
         return self.name
-
-

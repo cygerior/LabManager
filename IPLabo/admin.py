@@ -6,7 +6,6 @@ from import_export.admin import ImportExportModelAdmin
 
 from .models import *
 
-
 # Register your models here.
 
 
@@ -14,7 +13,6 @@ admin.site.register(Label)
 
 
 class IpResource(resources.ModelResource):
-
     class Meta:
         model = IpPool
         fields = ('id', 'ip', 'comment',)
@@ -47,4 +45,3 @@ class IpAdmin(ImportExportModelAdmin):
         return render(request, 'IPLabo/add_range.html', locals())
 
     change_list_template = "admin/IPLabo/ippool/change_list.html"
-

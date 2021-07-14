@@ -5,16 +5,16 @@
     <title>Liste des IP</title>
 </head>
 <body>
-    <table>
+<table>
     {% for ip in iplist %}
-        <tr>
-            <td>{{ ip.title }}</td>
-            <td>{{ ip.ip }}</td>
-            <td>{{ ip.comment }}</td>
-        </tr>
+    <tr>
+        <td>{{ ip.title }}</td>
+        <td>{{ ip.ip }}</td>
+        <td>{{ ip.comment }}</td>
+    </tr>
     {% empty %}
-        <tr>Empty IP Pool</tr>
+    <tr>Empty IP Pool</tr>
     {% endfor %}
-    </table>
+</table>
 </body>
 </html>

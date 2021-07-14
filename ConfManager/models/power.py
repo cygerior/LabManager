@@ -21,4 +21,3 @@ class PowerSupply(models.Model):
 
     def __str__(self):
         return f'{self.controller.name} Port {self.port_number}'
-

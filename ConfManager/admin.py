@@ -16,7 +16,7 @@ class DeviceInline(admin.TabularInline):
 
 
 class RackAdmin(admin.ModelAdmin):
-    inlines = (RackInline, )
+    inlines = (RackInline,)
 
 
 @admin.register(Board)
@@ -31,7 +31,7 @@ class PowerSupplyInline(admin.TabularInline):
 
 @admin.register(PowerController)
 class PowerControllerAdmin(admin.ModelAdmin):
-    inlines = (PowerSupplyInline, )
+    inlines = (PowerSupplyInline,)
 
 
 admin.site.register(BoardType)
@@ -43,6 +43,7 @@ admin.site.register(Device)
 admin.site.register(Label)
 admin.site.register(ModuleDefinition)
 admin.site.register(BoardDefinition)
+
 
 @admin.register(Interface)
 class InterfaceAdmin(PolymorphicParentModelAdmin):
@@ -58,4 +59,3 @@ class NetworkInterfaceAdmin(PolymorphicChildModelAdmin):
 @admin.register(UartInterface)
 class UartInterfaceAdmin(PolymorphicChildModelAdmin):
     base_model = UartInterface
-

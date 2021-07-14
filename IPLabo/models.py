@@ -1,5 +1,4 @@
-import os
-from ipaddress import ip_address, IPv4Address, summarize_address_range
+from ipaddress import IPv4Address
 
 from django.db import models
 from macaddress.fields import MACAddressField
@@ -22,7 +21,7 @@ class IpPool(models.Model):
         return ", ".join([p.title for p in self.labels.all()])
 
     @classmethod
-    def add_range(cls, ip_start: IPv4Address,  ip_end: IPv4Address):
+    def add_range(cls, ip_start: IPv4Address, ip_end: IPv4Address):
         ip = ip_start
         while ip <= ip_end:
             entry = cls(ip=str(ip), comment=None)
@@ -56,4 +55,3 @@ class IpReservation(models.Model):
 
     def __str__(self):
         return self.ip_ref.ip
-

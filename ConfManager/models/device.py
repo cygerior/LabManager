@@ -10,6 +10,3 @@ class Device(models.Model):
         constraints = [
             models.UniqueConstraint(fields=["name", "board_id"], name="unique_target_device")
         ]
-
-
-

@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('IPLabo', '0003_auto_20201108_1921'),
     ]

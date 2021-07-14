@@ -17,4 +17,3 @@ class BackplaneNetworkInterface(Interface):
 
 class UartInterface(Interface):
     uri = models.CharField(max_length=30)
-
