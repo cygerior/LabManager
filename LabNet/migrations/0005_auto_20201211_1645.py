@@ -6,13 +6,13 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('IPLabo', '0004_remove_ippool_arp_mac'),
+        ('LabNet', '0004_remove_ippool_arp_mac'),
     ]
 
     operations = [
         migrations.AlterField(
             model_name='arp',
             name='ip',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='IPLabo.ippool'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='LabNet.ippool'),
         ),
     ]

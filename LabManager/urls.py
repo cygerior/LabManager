@@ -1,4 +1,4 @@
-"""LaboConfigs URL Configuration
+"""LabManager URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.0/topics/http/urls/
@@ -16,13 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from LaboConfigs import views
+from LabManager import views
 
 urlpatterns = [
-    path('labo_configs/', views.index),
-    path('labo_configs/', include([
+    # path('labo_configs/', views.index),
+    path('lab_manager/', include([
         path('admin/', admin.site.urls),
-        path('confmanager/', include('ConfManager.urls')),
-        path('ip_labo/', include('IPLabo.urls')),
+        path('conf_manager/', include('ConfManager.urls')),
+        path('lab_net/', include('LabNet.urls')),
     ])),
 ]

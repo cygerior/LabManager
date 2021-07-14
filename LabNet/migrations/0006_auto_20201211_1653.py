@@ -5,7 +5,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('IPLabo', '0005_auto_20201211_1645'),
+        ('LabNet', '0005_auto_20201211_1645'),
     ]
 
     operations = [
@@ -20,6 +20,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='ippool',
             name='labels',
-            field=models.ManyToManyField(to='IPLabo.Label'),
+            field=models.ManyToManyField(to='LabNet.Label'),
         ),
     ]

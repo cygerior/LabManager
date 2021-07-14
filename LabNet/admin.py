@@ -38,10 +38,10 @@ class IpAdmin(ImportExportModelAdmin):
 
     def do_evil_view(self, request):
         print('doing evil')
-        return redirect('/labo_configs/admin/IPLabo/ippool/')
+        return redirect('/lab_manager/admin/LabNet/ippool/')
 
     def add_range(self, request, ip_start, ip_end):
         IpPool.add_range(ip_address(ip_start), ip_address(ip_end))
-        return render(request, 'IPLabo/add_range.html', locals())
+        return render(request, 'LabNet/add_range.html', locals())
 
-    change_list_template = "admin/IPLabo/ippool/change_list.html"
+    change_list_template = "admin/LabNet/ippool/change_list.html"

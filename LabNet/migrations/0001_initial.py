@@ -35,8 +35,8 @@ class Migration(migrations.Migration):
                 ('release', models.DateTimeField(null=True)),
                 ('datetime', models.DateTimeField(auto_now=True)),
                 ('interface_ref',
-                 models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='IPLabo.NetInterface')),
-                ('ip_ref', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='IPLabo.IpPool')),
+                 models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='LabNet.NetInterface')),
+                ('ip_ref', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='LabNet.IpPool')),
             ],
         ),
     ]

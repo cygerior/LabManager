@@ -7,7 +7,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('IPLabo', '0002_auto_20200503_1314'),
+        ('LabNet', '0002_auto_20200503_1314'),
     ]
 
     operations = [
@@ -42,7 +42,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('mac', macaddress.fields.MACAddressField(integer=True, null=True)),
                 ('date', models.DateTimeField(null=True)),
-                ('ip', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='IPLabo.ippool')),
+                ('ip', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='LabNet.ippool')),
             ],
         ),
     ]

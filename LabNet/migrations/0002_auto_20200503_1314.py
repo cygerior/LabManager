@@ -5,7 +5,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('IPLabo', '0001_initial'),
+        ('LabNet', '0001_initial'),
     ]
 
     operations = [
