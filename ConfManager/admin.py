@@ -46,12 +46,6 @@ class RackAdmin(admin.ModelAdmin):
     inlines = (RackInline,)
 
 
-@admin.register(BoardInterface)
-class BoardInterfaceAdmin(admin.ModelAdmin):
-    list_display = ('board', 'name', 'uri')
-    fields = (('board', 'name'), 'uri')
-
-
 @admin.register(Interface)
 class InterfaceAdmin(PolymorphicParentModelAdmin):
     base_model = Interface
