@@ -1,11 +1,16 @@
-from django.contrib import admin
 from django.db import models
 
-from .interfaces import Interface
+
+class BoardTypeDeviceAlias(models.Model):
+    name = models.CharField(max_length=30, unique=True)
+
+    def __str__(self):
+        return self.name
 
 
 class BoardTypeDevice(models.Model):
     name = models.CharField(max_length=30)
+    aliases = models.ManyToManyField(BoardTypeDeviceAlias)
 
     def __str__(self):
         return self.name

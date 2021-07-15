@@ -34,11 +34,20 @@ admin.site.register(PowerSupply)
 admin.site.register(Configuration)
 admin.site.register(Resource)
 admin.site.register(Reservation)
-admin.site.register(Device)
 admin.site.register(Label)
 admin.site.register(ModuleDefinition)
 admin.site.register(BoardDefinition)
 admin.site.register(BoardTypeDevice)
+
+
+@admin.register(BoardTypeDeviceAlias)
+class DeviceAliasAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Device)
+class DeviceAdmin(admin.ModelAdmin):
+    pass
 
 
 @admin.register(Rack)

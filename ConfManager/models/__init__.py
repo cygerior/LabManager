@@ -1,4 +1,4 @@
-from .board import BoardType, Board, BoardTypeDevice
+from .board import BoardType, Board, BoardTypeDevice, BoardTypeDeviceAlias
 from .configuration import Configuration
 from .board_definition import BoardDefinition
 from .device import Device
