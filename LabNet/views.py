@@ -6,7 +6,7 @@ from LabNet.models import IpPool
 
 
 def list(request):
-    return render(request, 'LabNet/List.html', {'iplist': IpPool.objects.all()})
+    return render(request, 'LabNet/list.html', {'iplist': IpPool.objects.all()})
 
 
 def add_range(request, ip_start, ip_end):

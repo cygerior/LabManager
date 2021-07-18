@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Liste des IP</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block branding %}<h1>Lab IP reservations</h1>{% endblock %}
+{% block content %}
 <table>
     {% for ip in iplist %}
     <tr>
@@ -16,5 +13,4 @@
     <tr>Empty IP Pool</tr>
     {% endfor %}
 </table>
-</body>
-</html>
+{% endblock %}

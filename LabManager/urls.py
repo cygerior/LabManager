@@ -21,7 +21,8 @@ from LabManager import views
 favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
 
 urlpatterns = [
-    # path('labo_configs/', views.index),
+    path('', RedirectView.as_view(url='/lab_manager/', permanent=True)),
+    path('lab_manager/', views.index),
     path('lab_manager/', include([
         path('admin/', admin.site.urls),
         path('conf_manager/', include('ConfManager.urls')),
