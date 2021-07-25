@@ -6,13 +6,13 @@
 <table>
     <tbody>
     <tr>
-        <td><a href="admin/">Admin</a></td>
+        <td><a href="{% url 'admin:index' %}">Admin</a></td>
     </tr>
     <tr>
-        <td><a href="conf_manager/home">Conf Manager</a></td>
+        <td><a href="{% url 'conf_manager:index' %}">Conf Manager</a></td>
     </tr>
     <tr>
-        <td><a href="lab_net/">IP reservations</a></td>
+        <td><a href="{% url 'lab_net:index' %}">IP reservations</a></td>
     </tr>
     </tbody>
 </table>
