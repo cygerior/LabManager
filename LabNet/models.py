@@ -1,7 +1,11 @@
+import ipaddress
+import logging
 from ipaddress import IPv4Address
 
 from django.db import models
+from django.utils import timezone
 from macaddress.fields import MACAddressField
+from django.utils.translation import gettext_lazy as _
 
 
 class Label(models.Model):
@@ -12,10 +16,51 @@ class Label(models.Model):
         return self.title
 
 
-class IpPool(models.Model):
-    ip = models.GenericIPAddressField(unique=True)
+class IntegerIPAddressField(models.Field):
+    description = _("IP Address stored as integer")
+
+    def get_internal_type(self):
+        return 'IntegerField'
+
+    def get_db_prep_value(self, value, connection, prepared=False):
+        logging.warning(f'db_prep {value}')
+        if not prepared:
+            value = self.get_prep_value(value)
+        return value
+
+    def get_prep_value(self, value):
+        logging.warning(f'prep {value}')
+        if value is not None:
+            value = int(value)
+        return value
+
+    def from_db_value(self, value, _expression, _connection):
+        if value is None:
+            return value
+        return ipaddress.ip_address(value)
+
+    def to_python(self, value):
+        logging.warning(f'to_python {value}')
+        if isinstance(value, (ipaddress.IPv6Address, ipaddress.IPv4Address)):
+            return value
+        if value is None:
+            return value
+
+        return ipaddress.ip_address(value)
+
+
+class Ip(models.Model):
+    ip = IntegerIPAddressField(unique=True)
     labels = models.ManyToManyField(Label)
     comment = models.TextField(blank=True, default='', null=True)
+
+    @property
+    def ip_type(self):
+        return self.ip.__class__.__name__
+
+    @property
+    def ip_num(self):
+        return int(self.ip)
 
     def label_list(self):
         return ", ".join([p.title for p in self.labels.all()])
@@ -29,11 +74,11 @@ class IpPool(models.Model):
             ip = ip + 1
 
     def __str__(self):
-        return self.ip
+        return str(self.ip)
 
 
 class Arp(models.Model):
-    ip = models.ForeignKey(IpPool, on_delete=models.CASCADE)
+    ip = models.ForeignKey(Ip, on_delete=models.CASCADE)
     mac = MACAddressField(null=True)
     date = models.DateTimeField(null=True)
 
@@ -47,11 +92,15 @@ class NetInterface(models.Model):
         return self.title
 
 
-class IpReservation(models.Model):
-    ip_ref = models.OneToOneField(IpPool, on_delete=models.CASCADE)
-    interface_ref = models.OneToOneField(NetInterface, on_delete=models.CASCADE)
-    release = models.DateTimeField(null=True)
-    datetime = models.DateTimeField(auto_now=True)
+def next_year():
+    return timezone.now() + timezone.timedelta(days=365)
+
+
+class Reservation(models.Model):
+    ip = models.OneToOneField(Ip, on_delete=models.CASCADE, primary_key=True)
+    interface = models.OneToOneField(NetInterface, on_delete=models.CASCADE)
+    release = models.DateTimeField(default=next_year)
+    datetime = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.ip_ref
+        return str(self.ip)

@@ -4,10 +4,12 @@
 {% block content %}
 <table>
     {% for ip in iplist %}
-    <tr>
-        <td>{{ ip.title }}</td>
+    <tr id="{{ ip.id }}" >
         <td>{{ ip.ip }}</td>
+        <td>{{ ip.labels }}</td>
         <td>{{ ip.comment }}</td>
+        <td>{{ ip.reservation.datetime }}</td>
+        <td>{{ ip.reservation.release }}</td>
     </tr>
     {% empty %}
     <tr>Empty IP Pool</tr>

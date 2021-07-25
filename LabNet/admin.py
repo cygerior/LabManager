@@ -1,23 +1,25 @@
+from ipaddress import ip_address
+
 from django.contrib import admin
 from django.shortcuts import redirect
-from django.urls import path
+from django.urls import path, reverse
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 
 from .models import *
 
-admin.site.register(IpReservation)
+admin.site.register(Reservation)
 admin.site.register(NetInterface)
 admin.site.register(Label)
 
 
 class IpResource(resources.ModelResource):
     class Meta:
-        model = IpPool
+        model = Ip
         fields = ('id', 'ip', 'comment',)
 
 
-@admin.register(IpPool)
+@admin.register(Ip)
 class IpAdmin(ImportExportModelAdmin):
     resource_class = IpResource
     list_display = ('ip', 'label_list', 'comment')
@@ -37,10 +39,10 @@ class IpAdmin(ImportExportModelAdmin):
 
     def do_evil_view(self, request):
         print('doing evil')
-        return redirect('/lab_manager/admin/LabNet/ippool/')
+        return redirect(reverse('index'))
 
     def add_range(self, request, ip_start, ip_end):
-        IpPool.add_range(ip_address(ip_start), ip_address(ip_end))
-        return render(request, 'LabNet/add_range.html', locals())
+        Ip.add_range(ip_address(ip_start), ip_address(ip_end))
+        return redirect(reverse('index'))
 
     change_list_template = "admin/LabNet/ippool/change_list.html"
