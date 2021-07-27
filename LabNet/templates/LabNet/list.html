@@ -2,17 +2,27 @@
 
 {% block branding %}<h1>Lab IP reservations</h1>{% endblock %}
 {% block content %}
+<a href="{% url 'lab_net:add_pool' %}">Add Pool</a>
 <table>
-    {% for ip in iplist %}
-    <tr id="{{ ip.id }}" >
-        <td>{{ ip.ip }}</td>
-        <td>{{ ip.labels }}</td>
-        <td>{{ ip.comment }}</td>
-        <td>{{ ip.reservation.datetime }}</td>
-        <td>{{ ip.reservation.release }}</td>
-    </tr>
-    {% empty %}
-    <tr>Empty IP Pool</tr>
-    {% endfor %}
+    <thead>
+        <th>IP</th>
+        <th>Type</th>
+        <th>Comment</th>
+        <th>Rsvd</th>
+        <th>Until</th>
+    </thead>
+    <tbody>
+        {% for ip in iplist %}
+        <tr id="{{ ip.id }}" >
+            <td>{{ ip.ip }}</td>
+            <td>{{ ip.label_list }}</td>
+            <td>{{ ip.comment|linebreaks|default:'-' }}</td>
+            <td>{{ ip.reservation.datetime|default:'-' }}</td>
+            <td>{{ ip.reservation.release|default:'-' }}</td>
+        </tr>
+        {% empty %}
+        <tr>Empty IP Pool</tr>
+        {% endfor %}
+    </tbody>
 </table>
 {% endblock %}

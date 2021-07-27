@@ -23,13 +23,11 @@ class IntegerIPAddressField(models.Field):
         return 'IntegerField'
 
     def get_db_prep_value(self, value, connection, prepared=False):
-        logging.warning(f'db_prep {value}')
         if not prepared:
             value = self.get_prep_value(value)
         return value
 
     def get_prep_value(self, value):
-        logging.warning(f'prep {value}')
         if value is not None:
             value = int(value)
         return value
@@ -69,7 +67,7 @@ class Ip(models.Model):
     def add_range(cls, ip_start: IPv4Address, ip_end: IPv4Address):
         ip = ip_start
         while ip <= ip_end:
-            entry = cls(ip=str(ip), comment=None)
+            entry = cls(ip=ip, comment=None)
             entry.save()
             ip = ip + 1
 
