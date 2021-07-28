@@ -22,7 +22,7 @@ class IpResource(resources.ModelResource):
 @admin.register(Ip)
 class IpAdmin(ImportExportModelAdmin):
     resource_class = IpResource
-    list_display = ('ip', 'label_list', 'comment')
+    list_display = ('ip', 'label_list')
     list_filter = ('labels',)
     ordering = ('ip',)
 

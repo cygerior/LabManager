@@ -50,7 +50,6 @@ class IntegerIPAddressField(models.Field):
 class Ip(models.Model):
     ip = IntegerIPAddressField(unique=True)
     labels = models.ManyToManyField(Label)
-    comment = models.TextField(blank=True, default='', null=True)
 
     @property
     def ip_type(self):
@@ -96,9 +95,10 @@ def next_year():
 
 class Reservation(models.Model):
     ip = models.OneToOneField(Ip, on_delete=models.CASCADE, primary_key=True)
+    comment = models.TextField(blank=True, default='', null=True)
     interface = models.OneToOneField(NetInterface, on_delete=models.CASCADE)
     release = models.DateTimeField(default=next_year)
     datetime = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return str(self.ip)
+        return f'{self.ip}'

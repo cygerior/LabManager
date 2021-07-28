@@ -7,18 +7,18 @@
     <thead>
         <th>IP</th>
         <th>Type</th>
-        <th>Comment</th>
         <th>Rsvd</th>
         <th>Until</th>
+        <th>Comment</th>
     </thead>
     <tbody>
         {% for ip in iplist %}
         <tr id="{{ ip.id }}" >
             <td>{{ ip.ip }}</td>
             <td>{{ ip.label_list }}</td>
-            <td>{{ ip.comment|linebreaks|default:'-' }}</td>
             <td>{{ ip.reservation.datetime|default:'-' }}</td>
             <td>{{ ip.reservation.release|default:'-' }}</td>
+            <td>{{ ip.reservation.comment|linebreaks|default:'-' }}</td>
         </tr>
         {% empty %}
         <tr>Empty IP Pool</tr>
