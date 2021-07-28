@@ -80,15 +80,6 @@ class Arp(models.Model):
     date = models.DateTimeField(null=True)
 
 
-class NetInterface(models.Model):
-    title = models.CharField(max_length=120)
-    mac_address = MACAddressField(null=True)
-    comment = models.TextField(blank=True, default='')
-
-    def __str__(self):
-        return self.title
-
-
 def next_year():
     return timezone.now() + timezone.timedelta(days=365)
 
@@ -96,7 +87,6 @@ def next_year():
 class Reservation(models.Model):
     ip = models.OneToOneField(Ip, on_delete=models.CASCADE, primary_key=True)
     comment = models.TextField(blank=True, default='', null=True)
-    interface = models.OneToOneField(NetInterface, on_delete=models.CASCADE)
     release = models.DateTimeField(default=next_year)
     datetime = models.DateTimeField(auto_now_add=True)
 

@@ -9,7 +9,6 @@ from import_export.admin import ImportExportModelAdmin
 from .models import *
 
 admin.site.register(Reservation)
-admin.site.register(NetInterface)
 admin.site.register(Label)
 
 
