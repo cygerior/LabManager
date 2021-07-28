@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block branding %}<h1>Lab IP reservation</h1>{% endblock %}
+{% block content %}
+    {% if reserve_error %}
+        <h1>Already reserved</h1>
+    {% else %}
+        <h1> Ip Reservation {{ rsv.ip }} </h1>
+        <form method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <input type="submit" value="Save">
+        </form>
+    {% endif %}
+{% endblock %}

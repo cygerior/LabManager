@@ -85,7 +85,7 @@ def next_year():
 
 
 class Reservation(models.Model):
-    ip = models.OneToOneField(Ip, on_delete=models.CASCADE, primary_key=True)
+    ip = models.OneToOneField(Ip, on_delete=models.CASCADE, unique=True)
     comment = models.TextField(blank=True, default='', null=True)
     release = models.DateTimeField(default=next_year)
     datetime = models.DateTimeField(auto_now_add=True)

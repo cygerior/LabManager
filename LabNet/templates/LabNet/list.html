@@ -10,6 +10,7 @@
         <th>Rsvd</th>
         <th>Until</th>
         <th>Comment</th>
+        <th colspan="2">Action</th>
     </thead>
     <tbody>
         {% for ip in iplist %}
@@ -19,6 +20,12 @@
             <td>{{ ip.reservation.datetime|default:'-' }}</td>
             <td>{{ ip.reservation.release|default:'-' }}</td>
             <td>{{ ip.reservation.comment|linebreaks|default:'-' }}</td>
+            {% if ip.reservation %}
+                <td><a href="{% url 'lab_net:edit_reservation' pk=ip.reservation.id %}">edit</a></td>
+                <td><a href="{% url 'lab_net:release' pk=ip.reservation.id %}">release</a></td>
+            {% else %}
+                <td colspan="2"><a href="{% url 'lab_net:reserve' ip_id=ip.id %}">reserve</a></td>
+            {% endif %}
         </tr>
         {% empty %}
         <tr>Empty IP Pool</tr>

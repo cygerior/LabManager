@@ -1,9 +1,13 @@
 from ipaddress import ip_address
 
-from django.shortcuts import render
+from django.db import IntegrityError
+from django.forms import ModelForm
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 
 from LabNet.forms import AddPoolForm
-from LabNet.models import Ip
+from LabNet.models import Ip, Reservation
 
 
 def list(request):
@@ -26,3 +30,41 @@ def post_add_pool(request):
     return render(request, 'LabNet/add_range.html', {
         'form': form
     })
+
+
+class ReservationForm(ModelForm):
+    class Meta:
+        model = Reservation
+        fields = ['comment', 'release']
+
+
+def edit_reservation(request, pk):
+    rsv = get_object_or_404(Reservation, pk=pk)
+    if request.method == 'POST':
+        form = ReservationForm(request.POST, instance=rsv)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('lab_net:index'))
+    else:
+        form = ReservationForm(instance=rsv)
+
+    return render(request, 'LabNet/reserve.html', {
+        'form': form,
+        'rsv': rsv
+    })
+
+
+def reserve(request, ip_id):
+    rsv = Reservation(ip_id=ip_id)
+    try:
+        rsv.save()
+    except IntegrityError:
+        return HttpResponseRedirect(reverse('lab_net:index'))
+
+    return HttpResponseRedirect(reverse('lab_net:edit_reservation', kwargs={'pk': rsv.id}))
+
+
+def release(request, pk):
+    rsv = get_object_or_404(Reservation, pk=pk)
+    rsv.delete()
+    return HttpResponseRedirect(reverse('lab_net:index'))
