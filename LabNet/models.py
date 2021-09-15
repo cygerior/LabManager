@@ -2,6 +2,8 @@ import ipaddress
 import logging
 from ipaddress import IPv4Address
 
+from django.conf import settings
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 from macaddress.fields import MACAddressField
@@ -86,9 +88,15 @@ def next_year():
 
 class Reservation(models.Model):
     ip = models.OneToOneField(Ip, on_delete=models.CASCADE, unique=True)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        related_name='ip_reservation',
+        null=True
+    )
     comment = models.TextField(blank=True, default='', null=True)
-    release = models.DateTimeField(default=next_year)
-    datetime = models.DateTimeField(auto_now_add=True)
+    release = models.DateField(default=next_year)
+    datetime = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return f'{self.ip}'

@@ -24,7 +24,8 @@ class Resource(models.Model):
 class Reservation(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='conf_reservation'
     )
     date = models.DateTimeField(auto_now=True)
     to_be_released = models.DateTimeField(null=True)

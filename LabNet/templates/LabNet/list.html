@@ -7,6 +7,7 @@
     <thead>
         <th>IP</th>
         <th>Type</th>
+        <th>User</th>
         <th>Rsvd</th>
         <th>Until</th>
         <th>Comment</th>
@@ -17,6 +18,7 @@
         <tr id="{{ ip.id }}" >
             <td>{{ ip.ip }}</td>
             <td>{{ ip.label_list }}</td>
+            <td>{{ ip.reservation.user|default:'-' }}</td>
             <td>{{ ip.reservation.datetime|default:'-' }}</td>
             <td>{{ ip.reservation.release|default:'-' }}</td>
             <td>{{ ip.reservation.comment|linebreaks|default:'-' }}</td>

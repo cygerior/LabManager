@@ -3,7 +3,7 @@ from ipaddress import ip_address
 from django.db import IntegrityError
 from django.forms import ModelForm
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
 from LabNet.forms import AddPoolForm
@@ -35,7 +35,7 @@ def post_add_pool(request):
 class ReservationForm(ModelForm):
     class Meta:
         model = Reservation
-        fields = ['comment', 'release']
+        fields = ['user', 'comment', 'release']
 
 
 def edit_reservation(request, pk):
