@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block branding %}<h1>Configuration Manager</h1>{% endblock %}
+
 {% block content %}
 <table>
     <thead>
@@ -21,12 +22,17 @@
             <td>{{ config.reservation.creation_date|default:'-' }}</td>
             <td>{{ config.reservation.release_date|default:'-' }}</td>
             <td>{{ config.reservation.comment|linebreaks|default:'-' }}</td>
-            {% if config.reservation %}
-                <td><a href="{% url 'conf_manager:edit_reservation' pk=config.reservation.id %}">edit</a></td>
-                <td><a href="{% url 'conf_manager:release' pk=config.reservation.id %}">release</a></td>
+            {% if user.is_authenticated %}
+                {% if config.reservation %}
+                    <td><a href="{% url 'conf_manager:edit_reservation' pk=config.reservation.id %}">edit</a></td>
+                    <td><a href="{% url 'conf_manager:release' pk=config.reservation.id %}">release</a></td>
+                {% else %}
+                    <td colspan="2"><a href="{% url 'conf_manager:reserve' config_id=config.id %}">reserve</a></td>
+                {% endif %}
             {% else %}
-                <td colspan="2"><a href="{% url 'conf_manager:reserve' config_id=config.id %}">reserve</a></td>
+                <td colspan="2"> - </td>
             {% endif %}
+
         </tr>
         {% empty %}
         <tr>No configuration present</tr>

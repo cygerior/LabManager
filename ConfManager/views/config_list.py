@@ -1,3 +1,4 @@
+from django.contrib.auth import user_logged_in
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import IntegrityError
 from django.forms import ModelForm
@@ -9,7 +10,14 @@ from ConfManager.models import Configuration, Reservation
 
 
 def config_list(request):
-    return render(request, 'ConfManager/config_list.html', {'config_list': Configuration.objects.all()})
+    return render(
+        request,
+        'ConfManager/config_list.html',
+        {
+            'config_list': Configuration.objects.all(),
+            'has_permission': True
+        }
+    )
 
 
 class ReservationForm(ModelForm):
@@ -35,7 +43,7 @@ def edit_reservation(request, pk):
 
 
 def reserve(request, config_id):
-    rsv = Reservation(configuration_id=config_id)
+    rsv = Reservation(configuration_id=config_id, user_id=request.user.id)
     try:
         rsv.save()
     except IntegrityError:

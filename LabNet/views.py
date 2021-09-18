@@ -11,7 +11,8 @@ from LabNet.models import Ip, Reservation
 
 
 def list(request):
-    return render(request, 'LabNet/list.html', {'iplist': Ip.objects.all()})
+    return render(request, 'LabNet/list.html', {
+        'iplist': Ip.objects.all(),'has_permission': True})
 
 
 def add_range(request, ip_start, ip_end):
@@ -55,7 +56,7 @@ def edit_reservation(request, pk):
 
 
 def reserve(request, ip_id):
-    rsv = Reservation(ip_id=ip_id)
+    rsv = Reservation(ip_id=ip_id, user_id=request.user.id)
     try:
         rsv.save()
     except IntegrityError:

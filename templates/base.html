@@ -43,16 +43,20 @@
                 {% if site_url %}
                     <a href="{{ site_url }}">{% translate 'View site' %}</a> /
                 {% endif %}
-                {% if user.is_active and user.is_staff %}
-                    {% url 'django-admindocs-docroot' as docsroot %}
-                    {% if docsroot %}
-                        <a href="{{ docsroot }}">{% translate 'Documentation' %}</a> /
+                {% if user.is_authenticated %}
+                    {% if user.is_active and user.is_staff %}
+                        {% url 'django-admindocs-docroot' as docsroot %}
+                        {% if docsroot %}
+                            <a href="{{ docsroot }}">{% translate 'Documentation' %}</a> /
+                        {% endif %}
                     {% endif %}
+                    {% if user.has_usable_password %}
+                    <a href="{% url 'admin:password_change' %}?next={{ request.path }}">{% translate 'Change password' %}</a> /
+                    {% endif %}
+                    <a href="{% url 'admin:logout' %}?next={{ request.path }}">{% translate 'Log out' %}</a>
+                {% else %}
+                    <a href="{% url 'admin:login' %}?next={{ request.path }}">'Log in'</a>
                 {% endif %}
-                {% if user.has_usable_password %}
-                <a href="{% url 'admin:password_change' %}">{% translate 'Change password' %}</a> /
-                {% endif %}
-                <a href="{% url 'admin:logout' %}">{% translate 'Log out' %}</a>
             {% endblock %}
         </div>
         {% endif %}
