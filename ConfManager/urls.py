@@ -4,9 +4,9 @@ from ConfManager import views
 
 app_name = 'conf_manager'
 urlpatterns = [
-    path('home', views.home, name='index'),
-    path('config/<int:id_config>', views.view_config),
-    path('date', views.date),
-    path('add_rpc/<uri>/<int:out_count>', views.add_rpc),
-    path('addition/<int:nombre1>/<int:nombre2>/', views.addition)
+    path('home', views.config_list, name='index'),
+    path('reserve/<int:config_id>', views.reserve, name='reserve'),
+    path('reserve/edit/<int:pk>', views.edit_reservation, name='edit_reservation'),
+    path('release/<int:pk>', views.release, name='release'),
+    path('config/<int:id_config>', views.view_config)
 ]

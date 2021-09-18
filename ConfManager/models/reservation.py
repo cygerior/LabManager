@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.utils import timezone
 
 from . import Configuration
 
@@ -21,15 +22,21 @@ class Resource(models.Model):
         return self.name
 
 
+def next_year():
+    return timezone.now() + timezone.timedelta(days=365)
+
+
 class Reservation(models.Model):
+    configuration = models.OneToOneField(Configuration, on_delete=models.CASCADE, unique=True)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name='conf_reservation'
+        related_name='conf_reservation',
+        null=True
     )
-    date = models.DateTimeField(auto_now=True)
-    to_be_released = models.DateTimeField(null=True)
-    configuration = models.OneToOneField(Configuration, on_delete=models.CASCADE)
+    comment = models.TextField(blank=True, default='', null=True)
+    creation_date = models.DateField(auto_now_add=True)
+    release_date = models.DateTimeField(default=next_year)
 
     def __str__(self):
         return f'{self.configuration.name} - {self.user}'
