@@ -5,13 +5,18 @@
 {% block content %}
 <table>
     <thead>
-        <th>Name</th>
-        <th>Board Name</th>
-        <th>Power</th>
-        <th>Rsvd</th>
-        <th>Until</th>
-        <th>Comment</th>
-        <th colspan="2">Action</th>
+        <tr>
+            <th rowspan="2">Name</th>
+            <th rowspan="2">Board Name</th>
+            <th colspan="6">Reservation</th>
+        </tr>
+        <tr>
+            <th>User</th>
+            <th>Date</th>
+            <th>Until</th>
+            <th>Comment</th>
+            <th colspan="2">Action</th>
+        </tr>
     </thead>
     <tbody>
         {% for config in config_list %}
@@ -19,9 +24,9 @@
             <td>{{ config.name }}</td>
             <td>{{ config.board.name }}</td>
             <td>{{ config.reservation.user|default:'-' }}</td>
-            <td>{{ config.reservation.creation_date|default:'-' }}</td>
-            <td>{{ config.reservation.release_date|default:'-' }}</td>
-            <td>{{ config.reservation.comment|linebreaks|default:'-' }}</td>
+            <td>{{ config.reservation.creation_date|date:"SHORT_DATE_FORMAT"|default:'-' }}</td>
+            <td>{{ config.reservation.release_date|date:"SHORT_DATE_FORMAT"|default:'-' }}</td>
+            <td>{{ config.reservation.comment|linebreaksbr|default:'-' }}</td>
             {% if user.is_authenticated %}
                 {% if config.reservation %}
                     <td><a href="{% url 'conf_manager:edit_reservation' pk=config.reservation.id %}">edit</a></td>

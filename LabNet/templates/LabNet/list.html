@@ -5,13 +5,18 @@
 <a href="{% url 'lab_net:add_pool' %}">Add Pool</a>
 <table>
     <thead>
-        <th>IP</th>
-        <th>Type</th>
-        <th>User</th>
-        <th>Rsvd</th>
-        <th>Until</th>
-        <th>Comment</th>
-        <th colspan="2">Action</th>
+        <tr>
+            <th rowspan="2">IP</th>
+            <th rowspan="2">Type</th>
+            <th colspan="6">Reservation</th>
+        </tr>
+        <tr>
+            <th>User</th>
+            <th>Date</th>
+            <th>Until</th>
+            <th>Comment</th>
+            <th colspan="2">Action</th>
+        </tr>
     </thead>
     <tbody>
         {% for ip in iplist %}
@@ -19,9 +24,9 @@
             <td>{{ ip.ip }}</td>
             <td>{{ ip.label_list }}</td>
             <td>{{ ip.reservation.user|default:'-' }}</td>
-            <td>{{ ip.reservation.datetime|default:'-' }}</td>
-            <td>{{ ip.reservation.release|default:'-' }}</td>
-            <td>{{ ip.reservation.comment|linebreaks|default:'-' }}</td>
+            <td>{{ ip.reservation.datetime|date:"SHORT_DATE_FORMAT"|default:'-' }}</td>
+            <td>{{ ip.reservation.release|date:"SHORT_DATE_FORMAT"|default:'-' }}</td>
+            <td>{{ ip.reservation.comment|linebreaksbr|default:'-' }}</td>
             {% if user.is_authenticated %}
                 {% if ip.reservation %}
                     <td><a href="{% url 'lab_net:edit_reservation' pk=ip.reservation.id %}">edit</a></td>
