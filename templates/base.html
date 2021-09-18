@@ -36,8 +36,10 @@
         {% if has_permission %}
         <div id="user-tools">
             {% block welcome-msg %}
-                {% translate 'Welcome,' %}
-                <strong>{% firstof user.get_short_name user.get_username %}</strong>.
+                {% if user.is_authenticated %}
+                    {% translate 'Welcome,' %}
+                    <strong>{% firstof user.get_short_name user.get_username %}</strong>.
+                {% endif %}
             {% endblock %}
             {% block userlinks %}
                 {% if site_url %}
