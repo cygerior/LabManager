@@ -1,5 +1,5 @@
 from .board import BoardType, Board, BoardTypeDevice, BoardTypeDeviceAlias
-from .configuration import Configuration
+from .test_platform import TestPlatform
 from .board_definition import BoardDefinition
 from .device import Device
 from .interfaces import Interface

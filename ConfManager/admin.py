@@ -31,7 +31,7 @@ class PowerControllerAdmin(admin.ModelAdmin):
 
 admin.site.register(BoardType)
 admin.site.register(PowerSupply)
-admin.site.register(Configuration)
+admin.site.register(TestPlatform)
 admin.site.register(Resource)
 admin.site.register(Reservation)
 admin.site.register(Label)

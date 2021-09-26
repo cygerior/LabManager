@@ -2,7 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 
-from . import Configuration
+from . import TestPlatform
 
 
 class Label(models.Model):
@@ -27,7 +27,7 @@ def next_year():
 
 
 class Reservation(models.Model):
-    configuration = models.OneToOneField(Configuration, on_delete=models.CASCADE, unique=True)
+    configuration = models.OneToOneField(TestPlatform, on_delete=models.CASCADE, unique=True)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,

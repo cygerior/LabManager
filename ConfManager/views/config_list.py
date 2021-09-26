@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
-from ConfManager.models import Configuration, Reservation
+from ConfManager.models import TestPlatform, Reservation
 
 
 def config_list(request):
@@ -14,7 +14,7 @@ def config_list(request):
         request,
         'ConfManager/config_list.html',
         {
-            'config_list': Configuration.objects.all(),
+            'config_list': TestPlatform.objects.all(),
             'has_permission': True
         }
     )
