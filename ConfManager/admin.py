@@ -2,6 +2,7 @@ from django.contrib import admin
 from polymorphic.admin import PolymorphicParentModelAdmin, PolymorphicChildModelAdmin
 
 from .models import *
+from .models.device import DeviceType
 
 
 class RackInline(admin.TabularInline):
@@ -38,6 +39,8 @@ admin.site.register(Label)
 admin.site.register(ModuleDefinition)
 admin.site.register(BoardDefinition)
 admin.site.register(BoardTypeDevice)
+
+admin.site.register(DeviceType)
 
 
 @admin.register(BoardTypeDeviceAlias)
