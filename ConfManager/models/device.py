@@ -14,6 +14,7 @@ class Device(models.Model):
     name = models.CharField(max_length=30)
     board = models.ForeignKey("Board", on_delete=models.CASCADE)
     interfaces = models.ManyToManyField('Interface')
+    type = models.ForeignKey(DeviceType, on_delete=models.CASCADE)
 
     class Meta:
         constraints = [
