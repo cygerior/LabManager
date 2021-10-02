@@ -36,8 +36,6 @@ admin.site.register(TestPlatform)
 admin.site.register(Resource)
 admin.site.register(Reservation)
 admin.site.register(Label)
-admin.site.register(ModuleDefinition)
-admin.site.register(BoardDefinition)
 admin.site.register(BoardTypeDevice)
 
 admin.site.register(DeviceType)
