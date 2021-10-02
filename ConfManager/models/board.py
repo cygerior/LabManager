@@ -4,6 +4,9 @@ from django.db import models
 class BoardTypeDeviceAlias(models.Model):
     name = models.CharField(max_length=30, unique=True)
 
+    class Meta:
+        verbose_name_plural = "Board type device aliases"
+
     def __str__(self):
         return self.name
 
