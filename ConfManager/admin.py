@@ -36,7 +36,6 @@ admin.site.register(TestPlatform)
 admin.site.register(Resource)
 admin.site.register(Reservation)
 admin.site.register(Label)
-admin.site.register(BoardTypeDevice)
 
 admin.site.register(DeviceType)
 

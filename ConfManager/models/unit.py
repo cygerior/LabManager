@@ -1,4 +1,6 @@
+import polymorphic.models
 from django.db import models
+from polymorphic.models import PolymorphicModel
 
 
 class BoardTypeDeviceAlias(models.Model):
@@ -11,17 +13,8 @@ class BoardTypeDeviceAlias(models.Model):
         return self.name
 
 
-class BoardTypeDevice(models.Model):
-    name = models.CharField(max_length=30)
-    aliases = models.ManyToManyField(BoardTypeDeviceAlias)
-
-    def __str__(self):
-        return self.name
-
-
 class UnitType(models.Model):
     name = models.CharField(max_length=30, unique=True)
-    devices = models.ManyToManyField(BoardTypeDevice)
 
     def __str__(self):
         return self.name
