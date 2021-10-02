@@ -1,6 +1,6 @@
 from django.db import models
 
-from .board import BoardTypeDeviceAlias
+from .unit import BoardTypeDeviceAlias
 
 
 class DeviceType(models.Model):
@@ -11,7 +11,7 @@ class DeviceType(models.Model):
 
 
 class Device(models.Model):
-    board = models.ForeignKey("Board", on_delete=models.CASCADE)
+    board = models.ForeignKey("ConfManager.Unit", on_delete=models.CASCADE)
     interfaces = models.ManyToManyField('Interface')
     type = models.ForeignKey(DeviceType, on_delete=models.CASCADE)
 

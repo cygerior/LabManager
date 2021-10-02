@@ -15,7 +15,7 @@ class DeviceInline(admin.TabularInline):
     extra = 1
 
 
-@admin.register(Board)
+@admin.register(Unit)
 class BoardAdmin(admin.ModelAdmin):
     inlines = (RackInline, DeviceInline)
 
@@ -30,7 +30,7 @@ class PowerControllerAdmin(admin.ModelAdmin):
     inlines = (PowerSupplyInline,)
 
 
-admin.site.register(BoardType)
+admin.site.register(UnitType)
 admin.site.register(PowerSupply)
 admin.site.register(TestPlatform)
 admin.site.register(Resource)

@@ -1,11 +1,11 @@
 from django.db import models
 
-from .board import Board
+from .unit import Unit
 
 
 class RackSlot(models.Model):
     rack = models.ForeignKey("Rack", on_delete=models.CASCADE)
-    board = models.OneToOneField(Board, on_delete=models.CASCADE)
+    board = models.OneToOneField(Unit, on_delete=models.CASCADE)
     slot_id = models.IntegerField()
 
     def __str__(self):
@@ -15,7 +15,7 @@ class RackSlot(models.Model):
 class Rack(models.Model):
     name = models.CharField(max_length=30)
     description = models.TextField(null=True)
-    board = models.ManyToManyField(Board, through=RackSlot)
+    board = models.ManyToManyField(Unit, through=RackSlot)
 
     def __str__(self):
         return self.name

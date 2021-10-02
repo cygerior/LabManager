@@ -19,7 +19,7 @@ class BoardTypeDevice(models.Model):
         return self.name
 
 
-class BoardType(models.Model):
+class UnitType(models.Model):
     name = models.CharField(max_length=30, unique=True)
     devices = models.ManyToManyField(BoardTypeDevice)
 
@@ -27,12 +27,11 @@ class BoardType(models.Model):
         return self.name
 
 
-class Board(models.Model):
+class Unit(models.Model):
     name = models.CharField(max_length=50, unique=True)
     serial_number = models.CharField(max_length=50, null=True)
     description = models.TextField(null=True)
-    type = models.ForeignKey('BoardType', on_delete=models.SET_NULL, null=True)
+    type = models.ForeignKey('ConfManager.UnitType', on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.name
-

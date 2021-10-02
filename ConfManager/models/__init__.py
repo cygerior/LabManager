@@ -1,4 +1,4 @@
-from .board import BoardType, Board, BoardTypeDevice, BoardTypeDeviceAlias
+from .unit import UnitType, Unit, BoardTypeDevice, BoardTypeDeviceAlias
 from .test_platform import TestPlatform
 from .device import Device
 from .interfaces import Interface
