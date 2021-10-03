@@ -14,6 +14,12 @@ class DeviceInline(admin.TabularInline):
     extra = 1
 
 
+class BoardTypeDeviceAliasInline(admin.TabularInline):
+    model = BoardTypeDeviceAlias
+    extra = 0
+    show_change_link = False
+
+
 @admin.register(Unit)
 class BoardAdmin(admin.ModelAdmin):
     inlines = (RackInline, DeviceInline)
@@ -38,6 +44,7 @@ class UnitTypeAdmin(PolymorphicParentModelAdmin):
 @admin.register(BoardType)
 class BoardTypeAdmin(PolymorphicChildModelAdmin):
     base_model = UnitType
+    inlines = (BoardTypeDeviceAliasInline, )
 
 
 @admin.register(ModuleType)

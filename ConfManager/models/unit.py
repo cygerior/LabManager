@@ -18,10 +18,15 @@ class ModuleType(UnitType):
 
 
 class BoardTypeDeviceAlias(models.Model):
-    name = models.CharField(max_length=30, unique=True)
+    name = models.CharField(max_length=30)
+    board_type = models.ForeignKey(BoardType, on_delete=models.CASCADE)
+    device_type = models.ForeignKey('ConfManager.DeviceType', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Board type device aliases"
+        constraints = [
+            models.UniqueConstraint(fields=["board_type_id", "name"], name="unique_board_type_device")
+        ]
 
     def __str__(self):
         return self.name
