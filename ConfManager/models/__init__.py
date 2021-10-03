@@ -6,3 +6,4 @@ from .power import PowerController, PowerSupply
 from .rack import RackSlot, Rack
 from .reservation import Reservation, Resource, Label
 from .interfaces import Interface, NetworkInterface, UartInterface, BackplaneNetworkInterface
+from .backplane import BackplaneGroup, BackplaneSlot
