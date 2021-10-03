@@ -1,6 +1,20 @@
-import polymorphic.models
 from django.db import models
 from polymorphic.models import PolymorphicModel
+
+
+class UnitType(PolymorphicModel):
+    name = models.CharField(max_length=30, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
+class BoardType(UnitType):
+    pass
+
+
+class ModuleType(UnitType):
+    board = models.OneToOneField(BoardType, primary_key=True, on_delete=models.CASCADE)
 
 
 class BoardTypeDeviceAlias(models.Model):
@@ -8,13 +22,6 @@ class BoardTypeDeviceAlias(models.Model):
 
     class Meta:
         verbose_name_plural = "Board type device aliases"
-
-    def __str__(self):
-        return self.name
-
-
-class UnitType(models.Model):
-    name = models.CharField(max_length=30, unique=True)
 
     def __str__(self):
         return self.name

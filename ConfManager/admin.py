@@ -29,7 +29,22 @@ class PowerControllerAdmin(admin.ModelAdmin):
     inlines = (PowerSupplyInline,)
 
 
-admin.site.register(UnitType)
+@admin.register(UnitType)
+class UnitTypeAdmin(PolymorphicParentModelAdmin):
+    base_model = UnitType
+    child_models = [BoardType, ModuleType]
+
+
+@admin.register(BoardType)
+class BoardTypeAdmin(PolymorphicChildModelAdmin):
+    base_model = UnitType
+
+
+@admin.register(ModuleType)
+class ModuleTypeAdmin(PolymorphicChildModelAdmin):
+    base_model = UnitType
+
+
 admin.site.register(PowerSupply)
 admin.site.register(TestPlatform)
 admin.site.register(Resource)
