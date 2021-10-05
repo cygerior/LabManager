@@ -27,7 +27,7 @@ def next_year():
 
 
 class Reservation(models.Model):
-    configuration = models.OneToOneField(TestPlatform, on_delete=models.CASCADE, unique=True)
+    platform = models.OneToOneField(TestPlatform, on_delete=models.CASCADE, unique=True)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -39,4 +39,4 @@ class Reservation(models.Model):
     release_date = models.DateTimeField(default=next_year)
 
     def __str__(self):
-        return f'{self.configuration.name} - {self.user}'
+        return f'{self.platform.name} - {self.user}'
