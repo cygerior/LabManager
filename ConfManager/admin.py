@@ -85,6 +85,9 @@ class RackAdmin(admin.ModelAdmin):
     inlines = (RackSlotInline,)
 
 
+admin.site.register(BackplaneSlot)
+
+
 @admin.register(BackplaneGroup)
 class BackplaneGroupAdmin(admin.ModelAdmin):
     inlines = (BackplaneSlotInline,)
