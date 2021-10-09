@@ -4,11 +4,6 @@ from polymorphic.admin import PolymorphicParentModelAdmin, PolymorphicChildModel
 from .models import *
 
 
-class RackSlotInline(admin.TabularInline):
-    model = RackSlot
-    extra = 1
-
-
 class DeviceInline(admin.TabularInline):
     model = Device
     extra = 1
@@ -31,7 +26,7 @@ class BackplaneSlotInline(admin.TabularInline):
 
 @admin.register(Unit)
 class BoardAdmin(admin.ModelAdmin):
-    inlines = (RackSlotInline, DeviceInline)
+    inlines = (DeviceInline, )
 
 
 class PowerSupplyInline(admin.TabularInline):
@@ -78,12 +73,6 @@ class DeviceAliasAdmin(admin.ModelAdmin):
 @admin.register(Device)
 class DeviceAdmin(admin.ModelAdmin):
     pass
-
-
-@admin.register(Rack)
-class RackAdmin(admin.ModelAdmin):
-    inlines = (RackSlotInline,)
-
 
 admin.site.register(BackplaneSlot)
 
