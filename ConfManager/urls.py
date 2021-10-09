@@ -8,5 +8,5 @@ urlpatterns = [
     path('reserve/<int:config_id>', views.reserve, name='reserve'),
     path('reserve/edit/<int:pk>', views.edit_reservation, name='edit_reservation'),
     path('release/<int:pk>', views.release, name='release'),
-    path('config/<int:id_config>', views.view_config)
+    path('config/<int:pk>', views.view_config, name='config')
 ]

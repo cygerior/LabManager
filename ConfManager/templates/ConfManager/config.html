@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block branding %}<h1>Configuration Manager</h1>{% endblock %}
+
+{% block content %}
+
+    <li>Name: {{ config.name }}</li>
+    <li>Board: {{ config.board.name }}</li>
+    {% if config.board %}
+    <ol>
+        <li>description: {{ config.board.description }}</li>
+        <li>type: {{ config.board.type.name }}</li>
+        <li>board type: {{ config.board.type.board }}</li>
+        <li>Devices:</li>
+        <ol>
+            {% for device in config.board.device_set.all %}
+                <li>{{ device }}</li>
+            {% endfor %}
+        </ol>
+        <li>Device aliases:</li>
+        <ol>
+            {% for alias in config.board.devices %}
+                <li>{{ alias.device_type }} - {{ alias }}</li>
+            {% endfor %}
+        </ol>
+
+    </ol>
+    {% endif %}
+    <li>Power supply: {{ config.power_supply }}</li>
+    <li>Backplane: {{ config.backplane }}</li>
+    <li>Reserved by: {{ config.reservation.user|default:'-' }}</li>
+
+{% endblock %}

@@ -1,4 +1,16 @@
-def view_config(request, id_config):
-    if id_config > 100:
-        raise Http404
-    return HttpResponse("Vous avez demandé à voir la config #{}".format(id_config))
+from django.shortcuts import get_object_or_404, render
+
+from ConfManager.models import TestPlatform
+
+
+def view_config(request, pk):
+    config = get_object_or_404(TestPlatform, pk=pk)
+
+    return render(
+        request,
+        'ConfManager/config.html',
+        {
+            'config': config,
+            'has_permission': True
+        }
+    )

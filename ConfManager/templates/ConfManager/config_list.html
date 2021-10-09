@@ -21,7 +21,7 @@
     <tbody>
         {% for config in config_list %}
         <tr id="{{ config.id }}" >
-            <td>{{ config.name }}</td>
+            <td><a href="{% url 'conf_manager:config' pk=config.id %}">{{ config.name }}</a></td>
             <td>{{ config.board.name }}</td>
             <td>{{ config.reservation.user|default:'-' }}</td>
             <td>{{ config.reservation.creation_date|date:"SHORT_DATE_FORMAT"|default:'-' }}</td>
