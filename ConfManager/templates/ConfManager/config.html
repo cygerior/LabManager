@@ -14,7 +14,7 @@
         <li>Devices:</li>
         <ol>
             {% for device in config.board.device_set.all %}
-                <li>{{ device }}</li>
+                <li>{{ device }} - {{ device.bp_mac }}</li>
             {% endfor %}
         </ol>
         <li>Device aliases:</li>

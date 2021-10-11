@@ -5,7 +5,7 @@ from .unit import BoardTypeDeviceAlias
 
 class DeviceType(models.Model):
     name = models.CharField(max_length=30, unique=True)
-    # device_number = models.IntegerField(default=0)
+    device_number = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -18,8 +18,10 @@ class Device(models.Model):
 
     @property
     def bp_mac(self):
-        slot = self.board.c
-        return '02:00:00:01:02:03'
+        slot = self.board.testplatform.backplane.slot_number
+        domain = 1
+        device_num = self.type.device_number
+        return f'02:00:00:{slot:02x}:{domain:02x}:{device_num:02x}'
 
     class Meta:
         constraints = [
