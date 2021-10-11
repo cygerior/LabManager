@@ -3,6 +3,7 @@ from django.db import models
 
 class BackplaneGroup(models.Model):
     name = models.CharField(max_length=30)
+    network = models.ForeignKey('Network',on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.name

@@ -26,8 +26,11 @@
 
     </ol>
     {% endif %}
-    <li>Power supply: {{ config.power_supply }}</li>
     <li>Backplane: {{ config.backplane }}</li>
+    <ol>
+        <li>Network: {{ config.backplane.group.network }}</li>
+        <li>Power supply: {{ config.backplane.power }}</li>
+    </ol>
     <li>Reserved by: {{ config.reservation.user|default:'-' }}</li>
 
 {% endblock %}
