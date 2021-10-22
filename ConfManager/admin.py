@@ -91,8 +91,6 @@ class InterfaceAdmin(PolymorphicParentModelAdmin):
 @admin.register(NetworkInterface)
 class NetworkInterfaceAdmin(PolymorphicChildModelAdmin):
     base_model = Interface
-    list_display = ('name', 'address')
-    fields = (('name', 'mac_address'), 'address')
 
 
 @admin.register(UartInterface)

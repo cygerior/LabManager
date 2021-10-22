@@ -1,7 +1,5 @@
 from django.db import models
 
-from .unit import BoardTypeDeviceAlias
-
 
 class DeviceType(models.Model):
     name = models.CharField(max_length=30, unique=True)
@@ -13,7 +11,6 @@ class DeviceType(models.Model):
 
 class Device(models.Model):
     board = models.ForeignKey("ConfManager.Unit", on_delete=models.CASCADE)
-    interfaces = models.ManyToManyField('Interface')
     type = models.ForeignKey(DeviceType, on_delete=models.CASCADE)
 
     @property
@@ -22,6 +19,11 @@ class Device(models.Model):
         domain = 1
         device_num = self.type.device_number
         return f'02:00:00:{slot:02x}:{domain:02x}:{device_num:02x}'
+
+    @property
+    def bp_network_address(self):
+        network = self.board.testplatform.backplane.group.network
+        return network.networkaddress_set.get(mac=self.bp_mac)
 
     class Meta:
         constraints = [

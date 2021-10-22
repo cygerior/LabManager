@@ -3,7 +3,7 @@ from django.db import models
 
 class BackplaneGroup(models.Model):
     name = models.CharField(max_length=30)
-    network = models.ForeignKey('Network',on_delete=models.SET_NULL, null=True, blank=True)
+    network = models.ForeignKey('Network', on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -11,6 +11,8 @@ class BackplaneGroup(models.Model):
 
 class BackplaneSlot(models.Model):
     slot_number = models.IntegerField()
+    domain_id = 0
+
     group = models.ForeignKey(BackplaneGroup, on_delete=models.CASCADE)
     power = models.OneToOneField('PowerSupply', on_delete=models.SET_NULL, null=True)
 
