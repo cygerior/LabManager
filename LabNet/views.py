@@ -7,16 +7,16 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
 from LabNet.forms import AddPoolForm
-from LabNet.models import Ip, Reservation
+from LabNet.models import NetworkAddress, Reservation, Network
 
 
 def list(request):
     return render(request, 'LabNet/list.html', {
-        'iplist': Ip.objects.all(),'has_permission': True})
+        'iplist': NetworkAddress.objects.all(), 'has_permission': True})
 
 
 def add_range(request, ip_start, ip_end):
-    Ip.add_range(ip_address(ip_start), ip_address(ip_end))
+    NetworkAddress.add_range(ip_address(ip_start), ip_address(ip_end))
     return render(request, 'LabNet/add_range.html', locals())
 
 
@@ -25,7 +25,7 @@ def post_add_pool(request):
         form = AddPoolForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            Ip.add_range(ip_address(cd['ip_start']), ip_address(cd['ip_end']))
+            Network(cd['network']).add_ip_range(ip_address(cd['ip_start']), ip_address(cd['ip_end']))
     else:
         form = AddPoolForm()
     return render(request, 'LabNet/add_range.html', {

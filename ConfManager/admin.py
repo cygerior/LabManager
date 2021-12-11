@@ -3,9 +3,6 @@ from polymorphic.admin import PolymorphicParentModelAdmin, PolymorphicChildModel
 
 from .models import *
 
-admin.site.register(Network)
-admin.site.register(NetworkAddress)
-
 
 class DeviceInline(admin.TabularInline):
     model = Device
@@ -24,8 +21,8 @@ class BackplaneSlotInline(admin.TabularInline):
 
 
 @admin.register(Unit)
-class BoardAdmin(admin.ModelAdmin):
-    inlines = (DeviceInline, )
+class UnitAdmin(admin.ModelAdmin):
+    pass
 
 
 class PowerSupplyInline(admin.TabularInline):
@@ -57,9 +54,7 @@ class ModuleTypeAdmin(PolymorphicChildModelAdmin):
 
 admin.site.register(PowerSupply)
 admin.site.register(TestPlatform)
-admin.site.register(Resource)
 admin.site.register(Reservation)
-admin.site.register(Label)
 
 admin.site.register(DeviceType)
 

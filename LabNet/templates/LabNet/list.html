@@ -2,45 +2,49 @@
 
 {% block branding %}<h1>Lab IP reservations</h1>{% endblock %}
 {% block content %}
-<a href="{% url 'lab_net:add_pool' %}">Add Pool</a>
-<table>
-    <thead>
-        <tr>
-            <th rowspan="2">IP</th>
-            <th rowspan="2">Type</th>
-            <th colspan="6">Reservation</th>
-        </tr>
-        <tr>
-            <th>User</th>
-            <th>Date</th>
-            <th>Until</th>
-            <th>Comment</th>
-            <th colspan="2">Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for ip in iplist %}
-        <tr id="{{ ip.id }}" >
-            <td>{{ ip.ip }}</td>
-            <td>{{ ip.label_list }}</td>
-            <td>{{ ip.reservation.user|default:'-' }}</td>
-            <td>{{ ip.reservation.datetime|date:"SHORT_DATE_FORMAT"|default:'-' }}</td>
-            <td>{{ ip.reservation.release|date:"SHORT_DATE_FORMAT"|default:'-' }}</td>
-            <td>{{ ip.reservation.comment|linebreaksbr|default:'-' }}</td>
-            {% if user.is_authenticated %}
-                {% if ip.reservation %}
-                    <td><a href="{% url 'lab_net:edit_reservation' pk=ip.reservation.id %}">edit</a></td>
-                    <td><a href="{% url 'lab_net:release' pk=ip.reservation.id %}">release</a></td>
-                {% else %}
-                    <td colspan="2"><a href="{% url 'lab_net:reserve' ip_id=ip.id %}">reserve</a></td>
-                {% endif %}
-            {% else %}
-                <td colspan="2"> - </td>
-            {% endif %}
-        </tr>
-        {% empty %}
-        <tr>Empty IP Pool</tr>
-        {% endfor %}
-    </tbody>
-</table>
+    <a href="{% url 'lab_net:add_pool' %}">Add Pool</a>
+    {% regroup iplist by network as net_ip_list%}
+    {% for net in net_ip_list %}
+        <h1>Network - {{ net.grouper }}</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th rowspan="2">IP</th>
+                    <th rowspan="2">Type</th>
+                    <th colspan="6">Reservation</th>
+                </tr>
+                <tr>
+                    <th>User</th>
+                    <th>Date</th>
+                    <th>Until</th>
+                    <th>Comment</th>
+                    <th colspan="2">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ip in net.list %}
+                <tr id="{{ ip.id }}" >
+                    <td>{{ ip.ip }}</td>
+                    <td>{{ ip.label_list }}</td>
+                    <td>{{ ip.reservation.user|default:'-' }}</td>
+                    <td>{{ ip.reservation.datetime|date:"SHORT_DATE_FORMAT"|default:'-' }}</td>
+                    <td>{{ ip.reservation.release|date:"SHORT_DATE_FORMAT"|default:'-' }}</td>
+                    <td>{{ ip.reservation.comment|linebreaksbr|default:'-' }}</td>
+                    {% if user.is_authenticated %}
+                        {% if ip.reservation %}
+                            <td><a href="{% url 'lab_net:edit_reservation' pk=ip.reservation.id %}">edit</a></td>
+                            <td><a href="{% url 'lab_net:release' pk=ip.reservation.id %}">release</a></td>
+                        {% else %}
+                            <td colspan="2"><a href="{% url 'lab_net:reserve' ip_id=ip.id %}">reserve</a></td>
+                        {% endif %}
+                    {% else %}
+                        <td colspan="2"> - </td>
+                    {% endif %}
+                </tr>
+                {% empty %}
+                <tr>Empty IP Pool</tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endfor %}
 {% endblock %}

@@ -14,16 +14,19 @@ admin.site.register(Label)
 
 class IpResource(resources.ModelResource):
     class Meta:
-        model = Ip
+        model = NetworkAddress
         fields = ('id', 'ip', 'comment',)
 
 
-@admin.register(Ip)
+admin.site.register(Network)
+
+
+@admin.register(NetworkAddress)
 class IpAdmin(ImportExportModelAdmin):
     resource_class = IpResource
-    list_display = ('ip', 'label_list')
-    list_filter = ('labels',)
-    ordering = ('ip',)
+    list_display = ('network', 'ip', 'label_list')
+    list_filter = ('network', 'labels')
+    ordering = ('network', 'ip')
 
     def get_urls(self):
         urls = super().get_urls()
@@ -41,7 +44,7 @@ class IpAdmin(ImportExportModelAdmin):
         return redirect(reverse('index'))
 
     def add_range(self, request, ip_start, ip_end):
-        Ip.add_range(ip_address(ip_start), ip_address(ip_end))
+        NetworkAddress.add_range(ip_address(ip_start), ip_address(ip_end))
         return redirect(reverse('index'))
 
     change_list_template = "admin/LabNet/ippool/change_list.html"

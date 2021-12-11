@@ -10,7 +10,7 @@ class DeviceType(models.Model):
 
 
 class Device(models.Model):
-    board = models.ForeignKey("ConfManager.Unit", on_delete=models.CASCADE)
+    board = models.ForeignKey("Unit", on_delete=models.CASCADE)
     type = models.ForeignKey(DeviceType, on_delete=models.CASCADE)
 
     @property
@@ -23,7 +23,7 @@ class Device(models.Model):
     @property
     def bp_network_address(self):
         network = self.board.testplatform.backplane.group.network
-        return network.networkaddress_set.get(mac=self.bp_mac)
+        return network.networkaddress_set.get(mac_address=self.bp_mac)
 
     class Meta:
         constraints = [

@@ -6,8 +6,8 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
-from macaddress.fields import MACAddressField
 from django.utils.translation import gettext_lazy as _
+from macaddress.fields import MACAddressField
 
 
 class Label(models.Model):
@@ -49,9 +49,21 @@ class IntegerIPAddressField(models.Field):
         return ipaddress.ip_address(value)
 
 
-class Ip(models.Model):
+class Network(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+
+    def add_ip_range(self, ip_start: IPv4Address, ip_end: IPv4Address, labels: [Label] or None = None):
+        NetworkAddress.add_range(self, ip_start, ip_end, labels)
+
+    def __str__(self):
+        return self.name
+
+
+class NetworkAddress(models.Model):
+    network = models.ForeignKey(Network, on_delete=models.CASCADE)
     ip = IntegerIPAddressField(unique=True)
     labels = models.ManyToManyField(Label)
+    mac_address = MACAddressField(null=True, default=None, blank=True)
 
     @property
     def ip_type(self):
@@ -65,19 +77,27 @@ class Ip(models.Model):
         return ", ".join([p.title for p in self.labels.all()])
 
     @classmethod
-    def add_range(cls, ip_start: IPv4Address, ip_end: IPv4Address):
+    def add_range(cls, network: Network, ip_start: IPv4Address, ip_end: IPv4Address, labels: [Label] or None = None):
         ip = ip_start
         while ip <= ip_end:
-            entry = cls(ip=ip, comment=None)
+            entry = cls(network=network.pk, ip=ip)
             entry.save()
             ip = ip + 1
 
+    class Meta:
+        verbose_name_plural = 'Network addresses'
+        constraints = [
+            models.UniqueConstraint(fields=["network", "ip"], name="ln_unique_network_address"),
+            models.UniqueConstraint(fields=["network", "mac_address"], name="ln_unique_network_mac_address")
+        ]
+        ordering = ["network", "ip"]
+
     def __str__(self):
-        return str(self.ip)
+        return f'{self.network} - {self.ip} - {self.mac_address}'
 
 
 class Arp(models.Model):
-    ip = models.ForeignKey(Ip, on_delete=models.CASCADE)
+    ip = models.ForeignKey(NetworkAddress, on_delete=models.CASCADE)
     mac = MACAddressField(null=True)
     date = models.DateTimeField(null=True)
 
@@ -87,7 +107,7 @@ def next_year():
 
 
 class Reservation(models.Model):
-    ip = models.OneToOneField(Ip, on_delete=models.CASCADE, unique=True)
+    ip = models.OneToOneField(NetworkAddress, on_delete=models.CASCADE, unique=True)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
