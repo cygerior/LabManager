@@ -8,4 +8,3 @@ class AddPoolForm(forms.Form):
     ip_start = forms.GenericIPAddressField()
     ip_end = forms.GenericIPAddressField()
     labels = forms.ModelMultipleChoiceField(Label.objects.all())
-

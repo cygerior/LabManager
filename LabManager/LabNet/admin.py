@@ -6,7 +6,7 @@ from django.urls import path, reverse
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 
-from .models import *
+from .models import Reservation, Label, NetworkAddress, Network
 
 admin.site.register(Reservation)
 admin.site.register(Label)

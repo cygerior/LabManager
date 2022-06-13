@@ -1,5 +1,0 @@
-Django>=3.1.7
-django-macaddress
-django-import-export
-gunicorn>=20.1.0
-django-polymorphic>=3

@@ -1,7 +1,9 @@
 from django.contrib import admin
 from polymorphic.admin import PolymorphicParentModelAdmin, PolymorphicChildModelAdmin
 
-from .models import *
+from .models import Device, BoardTypeDeviceAlias, BackplaneSlot, Unit, PowerSupply, PowerController, \
+    UnitType, BoardType, ModuleType, TestPlatform, Reservation, DeviceType, BackplaneGroup, Interface, NetworkInterface, \
+    UartInterface, BackplaneNetworkInterface
 
 
 class DeviceInline(admin.TabularInline):
@@ -94,5 +96,5 @@ class UartInterfaceAdmin(PolymorphicChildModelAdmin):
 
 
 @admin.register(BackplaneNetworkInterface)
-class UartInterfaceAdmin(PolymorphicChildModelAdmin):
+class BackplaneNetworkInterfaceAdmin(PolymorphicChildModelAdmin):
     base_model = Interface
