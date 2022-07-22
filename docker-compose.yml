@@ -5,7 +5,7 @@ services:
     build: ./LabManager
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - .:/usr/src/LabManager/
+      - ./LabManager:/usr/src/LabManager/
     ports:
       - 8000:8000
     env_file:
