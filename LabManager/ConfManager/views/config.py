@@ -11,6 +11,7 @@ def view_config(request, pk):
         'ConfManager/config.html',
         {
             'config': config,
-            'has_permission': True
+            'has_permission': True,
+            # 'is_nav_sidebar_enabled': True
         }
     )

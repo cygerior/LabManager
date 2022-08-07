@@ -75,11 +75,11 @@
     {% endif %}
 
     <div class="main shifted" id="main">
-      {% if not is_popup and is_nav_sidebar_enabled %}
+      {% comment %}{% if not is_popup and is_nav_sidebar_enabled %}
+      {% endif %} {% endcomment %}
         {% block nav-sidebar %}
           {% include "admin/nav_sidebar.html" %}
         {% endblock %}
-      {% endif %}
       <div class="content">
         {% block messages %}
           {% if messages %}

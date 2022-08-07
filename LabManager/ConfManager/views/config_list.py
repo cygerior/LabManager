@@ -1,3 +1,5 @@
+import dataclasses
+
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import IntegrityError
 from django.forms import ModelForm
@@ -8,13 +10,31 @@ from django.urls import reverse
 from ConfManager.models import TestPlatform, Reservation
 
 
+@dataclasses.dataclass
+class Model:
+    name: str
+    object_name: str
+
+@dataclasses.dataclass
+class App:
+    name: str
+    app_url: str
+    models: [Model]
+
+
 def config_list(request):
     return render(
         request,
         'ConfManager/config_list.html',
         {
             'config_list': TestPlatform.objects.all(),
-            'has_permission': True
+            'has_permission': True,
+            'available_apps': [
+                App('app1', 'url1', [
+                    Model('mod1', 'obj1'),
+                    Model('mod2', 'obj2')
+                ])
+            ]
         }
     )
 
