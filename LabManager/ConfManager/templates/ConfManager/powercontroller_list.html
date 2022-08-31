@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Power Controllers</h2>
+    <ul>
+        {% for controller in object_list %}
+            <li>{{ controller.name }}</li>
+            <ul><li>
+                {% for output in controller.powersupply_set.all %}
+                    {{ output.port_number }}
+                {% endfor %}
+            </li></ul>
+        {% endfor %}
+    </ul>
+{% endblock %}

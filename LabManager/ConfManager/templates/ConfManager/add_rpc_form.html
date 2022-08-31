@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block branding %}<h1>Lab configuration reservation</h1>{% endblock %}
+{% block content %}
+    <h1> Add Power controller </h1>
+    <form method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <input type="submit" value="Save">
+    </form>
+{% endblock %}

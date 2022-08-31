@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block branding %}<h1>Configuration Manager</h1>{% endblock %}
+{% block nav-sidebar %}
+    <button class="sticky toggle-nav-sidebar" id="toggle-nav-sidebar" aria-label="{% translate 'Toggle navigation' %}"></button>
+    <nav class="sticky" id="nav-sidebar">
+
+      <input type="search" id="nav-filter"
+             placeholder="{% translate 'Start typing to filter…' %}"
+             aria-label="{% translate 'Filter navigation items' %}">
+      {% include 'ConfManager/app_list.html' with app_list=available_apps show_changelinks=False %}
+
+    </nav>
+
+{% endblock %}
+{% block content %}
+<table>
+    <thead>
+        <tr>
+            <th rowspan="2">Name</th>
+            <th rowspan="2">Board Name</th>
+            <th colspan="6">Reservation</th>
+        </tr>
+        <tr>
+            <th>User</th>
+            <th>Date</th>
+            <th>Until</th>
+            <th>Comment</th>
+            <th colspan="2">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for config in config_list %}
+        <tr id="{{ config.id }}" >
+            <td><a href="{% url 'conf_manager:config' pk=config.id %}">{{ config.name }}</a></td>
+            <td>{{ config.board.name }}</td>
+            <td>{{ config.reservation.user|default:'-' }}</td>
+            <td>{{ config.reservation.creation_date|date:"SHORT_DATE_FORMAT"|default:'-' }}</td>
+            <td>{{ config.reservation.release_date|date:"SHORT_DATE_FORMAT"|default:'-' }}</td>
+            <td>{{ config.reservation.comment|linebreaksbr|default:'-' }}</td>
+            {% if user.is_authenticated %}
+                {% if config.reservation %}
+                    <td><a href="{% url 'conf_manager:edit_reservation' pk=config.reservation.id %}">edit</a></td>
+                    <td><a href="{% url 'conf_manager:release' pk=config.reservation.id %}">release</a></td>
+                {% else %}
+                    <td colspan="2"><a href="{% url 'conf_manager:reserve' config_id=config.id %}">reserve</a></td>
+                {% endif %}
+            {% else %}
+                <td colspan="2"> - </td>
+            {% endif %}
+
+        </tr>
+        {% empty %}
+        <tr>No configuration present</tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -10,7 +10,6 @@ class PowerController(models.Model):
         rpc.save()
         for out_index in range(out_count):
             out = PowerSupply(
-                name='{name} - {id}'.format(name=url, id=out_index),
                 port_number=out_index,
                 controller=rpc
             )
