@@ -15,6 +15,7 @@ class Model:
     name: str
     object_name: str
 
+
 @dataclasses.dataclass
 class App:
     name: str
@@ -30,7 +31,7 @@ def config_list(request):
             'config_list': TestPlatform.objects.all(),
             'has_permission': True,
             'available_apps': [
-                App('app1', 'url1', [
+                App('Power Controllers', 'rpc', [
                     Model('mod1', 'obj1'),
                     Model('mod2', 'obj2')
                 ])

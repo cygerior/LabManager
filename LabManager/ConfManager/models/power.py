@@ -25,7 +25,7 @@ class PowerSupply(models.Model):
 
     class Meta:
         verbose_name_plural = "Power supplies"
-        ordering = ['port_number']
+        ordering = ["controller__name", 'port_number']
         constraints = [
             models.UniqueConstraint(fields=["port_number", "controller"], name="unique_port_controller")
         ]

@@ -1,10 +1,14 @@
 {% extends "base.html" %}
 
+{% load i18n %}
+
+{% block branding %}<h1>Configuration Manager</h1>{% endblock %}
 {% block content %}
     <h2>Power Controllers</h2>
+    <a href="{% url 'conf_manager:add_rpc_form' %}">Add</a>
     <ul>
         {% for controller in object_list %}
-            <li>{{ controller.name }}</li>
+            <li>{{ controller.name }} <a href="{% url 'conf_manager:del_rpc' pk=controller.id %}">delete</a></li>
             <ul><li>
                 {% for output in controller.powersupply_set.all %}
                     {{ output.port_number }}

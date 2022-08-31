@@ -2,7 +2,7 @@ from django import forms, views
 from django.contrib.admin.options import FORMFIELD_FOR_DBFIELD_DEFAULTS
 from django.forms import ModelForm, Form
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views.generic import ListView
 
@@ -18,8 +18,7 @@ def add_rpc_form(request):
     if request.method == 'POST':
         form = PowerAddForm(request.POST)
         if form.is_valid():
-            PowerController.new(form.cleaned_data['uri'], form.cleaned_data['count'])
-            return HttpResponseRedirect(reverse('conf_manager:rpc_list'))
+            return add_rpc(request, form.cleaned_data['uri'], form.cleaned_data['count'])
     else:
         form = PowerAddForm()
 
@@ -28,9 +27,19 @@ def add_rpc_form(request):
     })
 
 
-def add_rpc(request, uri, out_count):
-    rpc = PowerController.new(uri, out_count)
-    return render(request, 'ConfManager/add_rpc.html', locals())
+def del_rpc(_request, pk):
+    controller = get_object_or_404(PowerController, pk=pk)
+    controller.delete()
+    return HttpResponseRedirect(reverse('conf_manager:rpc_list'))
+
+
+def add_rpc(_request, uri, out_count):
+    PowerController.new(uri, out_count)
+    return HttpResponseRedirect(reverse('conf_manager:rpc_list'))
+
+
+class PowerListView(ListView):
+    model = PowerController
 
 
 class PowerListView(ListView):

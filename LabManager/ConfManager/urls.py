@@ -12,5 +12,6 @@ urlpatterns = [
     path('config/<int:pk>', views.view_config, name='config'),
     path('rpc/add/<str:uri>/<int:out_count>', views.add_rpc, name='add_rpc'),
     path('rpc/add', views.add_rpc_form, name='add_rpc_form'),
-    path('rpc/list', views.PowerListView.as_view(), name='rpc_list'),
+    path('rpc/del/<int:pk>', views.del_rpc, name='del_rpc'),
+    path('rpc', views.PowerListView.as_view(), name='rpc_list'),
 ]
