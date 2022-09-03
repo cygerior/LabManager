@@ -5,10 +5,10 @@ class PowerController(models.Model):
     name = models.CharField(max_length=30, unique=True)
 
     @classmethod
-    def new(cls, url: str, out_count: int):
+    def new(cls, url: str, output_start: int, output_end: int):
         rpc = cls(name=url)
         rpc.save()
-        for out_index in range(out_count):
+        for out_index in range(output_start, output_end + 1):
             out = PowerSupply(
                 port_number=out_index,
                 controller=rpc
