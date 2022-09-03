@@ -63,7 +63,7 @@ def edit_reservation(request, pk):
 
 
 def reserve(request, config_id):
-    rsv = Reservation(configuration_id=config_id, user_id=request.user.id)
+    rsv = Reservation(platform_id=config_id, user_id=request.user.id)
     try:
         rsv.save()
     except IntegrityError:
