@@ -1,8 +1,9 @@
-from django.contrib import admin
 from polymorphic.admin import PolymorphicParentModelAdmin, PolymorphicChildModelAdmin
 
-from .models import Device, BoardTypeDeviceAlias, BackplaneSlot, Unit, PowerSupply, PowerController, \
-    UnitType, BoardType, ModuleType, TestPlatform, Reservation, DeviceType, BackplaneGroup, Interface, NetworkInterface, \
+from .power import *
+from .uart import *
+from ..models import Device, BoardTypeDeviceAlias, BackplaneSlot, Unit, UnitType, BoardType, ModuleType, \
+    TestPlatform, Reservation, DeviceType, BackplaneGroup, Interface, NetworkInterface, \
     UartInterface, BackplaneNetworkInterface
 
 
@@ -25,16 +26,6 @@ class BackplaneSlotInline(admin.TabularInline):
 @admin.register(Unit)
 class UnitAdmin(admin.ModelAdmin):
     pass
-
-
-class PowerSupplyInline(admin.TabularInline):
-    model = PowerSupply
-    extra = 1
-
-
-@admin.register(PowerController)
-class PowerControllerAdmin(admin.ModelAdmin):
-    inlines = (PowerSupplyInline,)
 
 
 @admin.register(UnitType)
