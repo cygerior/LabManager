@@ -25,6 +25,3 @@ class BackplaneSlot(MultiPortPortModel):
         constraints = [
             models.UniqueConstraint(fields=["controller", "port_number"], name="unique_backplane_group_port")
         ]
-
-    def __str__(self):
-        return f'{self.group}-{self.port_number}'
