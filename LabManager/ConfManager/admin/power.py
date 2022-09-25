@@ -1,13 +1,9 @@
 from django.contrib import admin
 
-from ConfManager.models import PowerSupply, PowerController
-
-
-class PowerSupplyInline(admin.TabularInline):
-    model = PowerSupply
-    extra = 8
+from ConfManager.forms.multi_port import MultiPortForm
+from ConfManager.models import PowerController
 
 
 @admin.register(PowerController)
 class PowerControllerAdmin(admin.ModelAdmin):
-    inlines = (PowerSupplyInline, )
+    form = MultiPortForm

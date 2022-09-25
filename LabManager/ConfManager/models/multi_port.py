@@ -30,7 +30,7 @@ class MultiPortPortModel(models.Model):
 class MultiPortControllerModel(models.Model):
 
     name = models.CharField(max_length=30, unique=True)
-    url = models.CharField(max_length=30, unique=True)
+    url = models.CharField(max_length=30)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

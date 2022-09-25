@@ -1,14 +1,14 @@
 from django.contrib import admin
 
+from ConfManager.forms.multi_port import MultiPortForm
 from ConfManager.models import UartPort, UartServer, UartGroup, UartGroupEntry
-from ConfManager.forms.uart import UartForm
 
 admin.site.register(UartPort)
 
 
 @admin.register(UartServer)
 class UartServerAdmin(admin.ModelAdmin):
-    form = UartForm
+    form = MultiPortForm
 
 
 class UartGroupEntryInline(admin.TabularInline):

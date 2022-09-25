@@ -4,7 +4,7 @@ from .power import *
 from .uart import *
 from ..models import Device, BoardTypeDeviceAlias, BackplaneSlot, Unit, UnitType, BoardType, ModuleType, \
     TestPlatform, Reservation, DeviceType, BackplaneGroup, Interface, NetworkInterface, \
-    UartInterface, BackplaneNetworkInterface
+    UartInterface, BackplaneNetworkInterface, PowerSupply
 
 
 class DeviceInline(admin.TabularInline):
