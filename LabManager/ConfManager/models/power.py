@@ -8,7 +8,6 @@ class PowerController(MultiPortControllerModel):
 
 
 class PowerSupply(MultiPortPortModel):
-    port_number = models.IntegerField()
     controller = models.ForeignKey(
         'PowerController',
         related_name='ports',

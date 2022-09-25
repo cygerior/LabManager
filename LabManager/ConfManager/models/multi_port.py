@@ -27,10 +27,9 @@ class MultiPortPortModel(models.Model):
         return f'{self.controller}:{self.port_number}'
 
 
-class MultiPortControllerModel(models.Model):
+class MultiPortContainerModel(models.Model):
 
     name = models.CharField(max_length=30, unique=True)
-    url = models.CharField(max_length=30)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -76,6 +75,17 @@ class MultiPortControllerModel(models.Model):
     @port_count.setter
     def port_count(self, value):
         self._port_count = value
+
+    class Meta:
+        abstract = True
+
+    def __str__(self):
+        return self.name
+
+
+class MultiPortControllerModel(MultiPortContainerModel):
+
+    url = models.CharField(max_length=30)
 
     class Meta:
         abstract = True

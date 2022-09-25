@@ -18,11 +18,6 @@ class BoardTypeDeviceAliasInline(admin.TabularInline):
     show_change_link = False
 
 
-class BackplaneSlotInline(admin.TabularInline):
-    model = BackplaneSlot
-    extra = 8
-
-
 @admin.register(Unit)
 class UnitAdmin(admin.ModelAdmin):
     pass
@@ -67,7 +62,7 @@ admin.site.register(BackplaneSlot)
 
 @admin.register(BackplaneGroup)
 class BackplaneGroupAdmin(admin.ModelAdmin):
-    inlines = (BackplaneSlotInline,)
+    pass
 
 
 @admin.register(Interface)
