@@ -1,18 +1,17 @@
 from django.db import models
 
-from ConfManager.models.multi_port import MultiPortControllerModel
+from ConfManager.models.multi_port import MultiPortControllerModel, MultiPortPortModel
 
 
-class UartPort(models.Model):
-    index = models.IntegerField()
-    server = models.ForeignKey('UartServer', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f'{self.server.name}.{self.index}'
+class UartPort(MultiPortPortModel):
+    controller = models.ForeignKey(
+        'UartServer',
+        related_name='ports',
+        on_delete=models.CASCADE)
 
 
 class UartServer(MultiPortControllerModel):
-    _port_model = UartPort
+    pass
 
 
 class UartGroup(models.Model):

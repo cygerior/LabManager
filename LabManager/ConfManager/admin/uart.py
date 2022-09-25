@@ -1,19 +1,14 @@
 from django.contrib import admin
 
 from ConfManager.models import UartPort, UartServer, UartGroup, UartGroupEntry
-
+from ConfManager.forms.uart import UartForm
 
 admin.site.register(UartPort)
 
 
-class UartInline(admin.TabularInline):
-    model = UartPort
-    extra = 1
-
-
 @admin.register(UartServer)
 class UartServerAdmin(admin.ModelAdmin):
-    inlines = (UartInline, )
+    form = UartForm
 
 
 class UartGroupEntryInline(admin.TabularInline):

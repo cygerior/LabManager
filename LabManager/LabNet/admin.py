@@ -47,4 +47,4 @@ class IpAdmin(ImportExportModelAdmin):
         NetworkAddress.add_range(ip_address(ip_start), ip_address(ip_end))
         return redirect(reverse('index'))
 
-    change_list_template = "admin/LabNet/ippool/change_list.html"
+    # change_list_template = "admin/LabNet/ippool/change_list.html"
