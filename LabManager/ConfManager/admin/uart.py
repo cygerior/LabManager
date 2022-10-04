@@ -9,7 +9,7 @@ admin.site.register(UartPort)
 @admin.register(UartServer)
 class UartServerAdmin(admin.ModelAdmin):
     form = MultiPortForm
-
+    pass
 
 class UartGroupEntryInline(admin.TabularInline):
     model = UartGroupEntry

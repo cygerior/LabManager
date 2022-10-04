@@ -58,7 +58,7 @@ class MultiPortContainerModel(models.Model):
 
     @property
     def _port_numbers(self) -> List[int]:
-        return [port.port_number for port in self.ports.all()]
+        return [port.port_number for port in self.ports.all()] if self.id else [0]
 
     @property
     def port_base(self):
