@@ -19,6 +19,11 @@ class UartServerTest(TestCase):
         self.assertEqual('uart-2:5', str(ports[4]))
         self.assertEqual('uart-2:3', str(ports[2]))
 
+    def test_new(self):
+        srv = UartServer()
+        self.assertEqual(1, srv.port_count)
+        self.assertEqual(1, srv.port_base)
+
 
 if __name__ == '__main__':
     django.test.main()

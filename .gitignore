@@ -1,6 +1,6 @@
 db.sqlite3
-/venv/
+/venv*/
 __pycache__
 /.idea/
-/LabManager/staticfiles/
-
+**/staticfiles/
+**/.pytest_cache/

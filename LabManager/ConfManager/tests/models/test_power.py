@@ -20,6 +20,11 @@ class MyTestCase(TestCase):
         self.assertEqual('Power 1:1', str(PowerController.objects.get(name='Power 1').ports.all()[0]))
         self.assertEqual('Power 2:7', str(PowerController.objects.get(name='Power 2').ports.all()[2]))
 
+    def test_new(self):
+        ctrl = PowerController()
+        self.assertEqual(1, ctrl.port_count)
+        self.assertEqual(1, ctrl.port_base)
+
 
 if __name__ == '__main__':
     django.test.main()
