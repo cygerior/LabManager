@@ -38,7 +38,3 @@ def add_rpc(_request, uri, output_start, output_end):
 
 class PowerListView(ListView):
     model = PowerController
-
-
-class PowerListView(ListView):
-    model = PowerController

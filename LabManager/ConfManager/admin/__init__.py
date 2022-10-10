@@ -1,9 +1,11 @@
+from django.contrib import admin
+from polymorphic.admin import PolymorphicChildModelAdmin
 from polymorphic.admin import PolymorphicParentModelAdmin
 
-from .power import *
-from .uart import *
-from .backplane import *
-from .unit import *
+from .power import PowerControllerAdmin
+from .uart import UartConnectorAdmin, UartServerAdmin
+from .backplane import BackplaneGroupAdmin, BackplaneSlotAdmin, BackplaneNetworkInterfaceAdmin
+from .unit import UnitAdmin, UnitTypeAdmin, ModuleTypeAdmin, BoardTypeAdmin, DeviceAliasAdmin
 from ..models import TestPlatform, Reservation, DeviceType, Interface, NetworkInterface, \
     UartInterface, BackplaneNetworkInterface, PowerSupply
 
@@ -28,5 +30,3 @@ class NetworkInterfaceAdmin(PolymorphicChildModelAdmin):
 @admin.register(UartInterface)
 class UartInterfaceAdmin(PolymorphicChildModelAdmin):
     base_model = Interface
-
-

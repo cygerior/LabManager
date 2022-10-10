@@ -5,4 +5,4 @@ from .power import PowerController, PowerSupply
 from .reservation import Reservation
 from .interfaces import Interface, NetworkInterface, UartInterface, BackplaneNetworkInterface
 from .backplane import BackplaneGroup, BackplaneSlot
-from .uart import *
+from .uart import UartPort, UartGroup, UartServer, UartGroupEntry
