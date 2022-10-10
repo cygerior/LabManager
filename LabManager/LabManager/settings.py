@@ -28,6 +28,7 @@ DEBUG = int(os.environ.get("DEBUG", default=0))
 
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", default='localhost 127.0.0.1 [::1]').split(" ")
 
+CSRF_TRUSTED_ORIGINS = os.environ.get("CSRF_TRUSTED_ORIGINS", default='http://localhost:8000 http://127.0.0.1:8000 http://[::1]:8000').split(" ")
 # Application definition
 
 INSTALLED_APPS = [

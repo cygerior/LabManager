@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile.prod
     command: gunicorn LabManager.wsgi:application --bind 0.0.0.0:8000
     volumes:
-      - static_volume:/home/app/web/staticfiles
+      - static_volume:/home/labmanager/web/staticfiles
     expose:
       - 8000
     env_file:
@@ -24,7 +24,7 @@ services:
   nginx:
     build: ./nginx
     volumes:
-      - static_volume:/home/app/web/staticfiles
+      - static_volume:/home/labmanager/web/staticfiles
 
     ports:
       - 8000:80
