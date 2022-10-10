@@ -27,4 +27,4 @@ jobs:
           pip install -r LabManager/requirements.txt
       - name: Run Tests
         run: |
-          python manage.py test
+          python LabManager/manage.py test
