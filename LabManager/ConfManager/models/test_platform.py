@@ -6,6 +6,7 @@ class TestPlatform(models.Model):
     description = models.TextField(blank=True, null=True)
     board = models.OneToOneField('Unit', on_delete=models.SET_NULL, blank=True, null=True)
     backplane = models.OneToOneField('BackplaneSlot', on_delete=models.SET_NULL, blank=True, null=True)
+    uart_group = models.OneToOneField('UartGroup', on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):
         return self.name
